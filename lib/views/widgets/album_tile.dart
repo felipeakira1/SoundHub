@@ -14,7 +14,7 @@ class AlbumTile extends StatelessWidget {
         MaterialPageRoute(builder: (context) => AlbumDetailsScreen(album: album)),
       ),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        margin: const EdgeInsets.all(8.0),
         width: 120,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
@@ -33,7 +33,6 @@ class AlbumTile extends StatelessWidget {
             Text(album.nome, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
             Text(album.artista, style: const TextStyle(fontSize: 14.0)),
             Text(album.ano.toString(), style: const TextStyle(fontSize: 14.0)),
-            Text(album.musicas.length.toString(), style: const TextStyle(fontSize: 14.0)),
           ],
         ),
       ),

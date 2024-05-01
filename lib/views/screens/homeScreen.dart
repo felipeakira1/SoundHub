@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/albuns_musicas_manager.dart';
-import 'package:soundhub/views/screens/searchScreen.dart';
 import 'package:soundhub/views/widgets/album_tile.dart';
+import 'package:soundhub/views/widgets/drawer.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -14,37 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomePageAppBar(),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'Soundhub',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Menu Inicial'),
-              onTap: () {
-                Navigator.popUntil(context, ModalRoute.withName('/'));
-              },
-            ),
-            ListTile(
-              title: Text('Pesquisar'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TelaDePesquisa()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: SoundHubDrawer(),
       body: Container(
         constraints: const BoxConstraints.expand(),
         child: ListView(
@@ -75,7 +45,7 @@ class HomePage extends StatelessWidget {
           textAlign: TextAlign.start,
         ),
         Container(
-            height: 250,
+            height: 270,
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
