@@ -15,4 +15,14 @@ class AlbumManager {
   void add(Album album) {
     _albums.add(album);
   }
+
+  // Método para buscar álbuns ocm base na consulta de pesquisa
+  List<Album> searchAlbums(String query) {
+    // Filtrar os álbuns cujo nome ocntenha a consulta de pesquisa
+    return _albums
+      .where(
+        (album) => album.nome.toLowerCase().contains(query.toLowerCase()))
+      .toList();
+
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soundhub/views/app_bars.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/album_manager.dart';
+import 'package:soundhub/views/searchScreen.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -31,7 +32,7 @@ class HomePage extends StatelessWidget {
                 Navigator.popUntil(context, ModalRoute.withName('/'));
               },
             ),
-            /*ListTile(
+            ListTile(
               title: Text('Pesquisar'),
               onTap: () {
                 Navigator.push(
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => TelaDePesquisa()),
                 );
               },
-            ),*/
+            ),
           ],
         ),
       ),
