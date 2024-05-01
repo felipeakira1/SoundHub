@@ -107,6 +107,7 @@ class _AlbumReviewScreenState extends State<AlbumReviewScreen> {
                         onPressed: () 
                         {
                           // verificar se usuario esta logado
+                          _submitForm();
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -127,4 +128,70 @@ class _AlbumReviewScreenState extends State<AlbumReviewScreen> {
       )
     );
   }
+
+  void _submitForm() {
+    // if (_formKey.currentState!.validate()) {
+    //   _formKey.currentState!.save();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+      backgroundColor: Color(0xff333533),
+      title: const Text('Obrigado por contribuir!'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Você avaliou o album', style: TextStyle(fontSize:  22, fontWeight: FontWeight.bold, color: Colors.white)),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(widget.album.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                  
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // Alinha o texto à esquerda
+                  mainAxisAlignment: MainAxisAlignment.start, // Alinha os itens ao topo da Column
+                
+                  children: [
+                    Text(widget.album.nome, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),),
+                    Text(widget.album.artista, style: TextStyle(fontSize: 16, color: Colors.white),),
+                    Text(widget.album.ano.toString(), style: TextStyle(fontSize: 16, color: Colors.white),),
+                    Text('Nota: $_notaSelecionada / 10', style: TextStyle(fontSize: 16, color: Colors.white),),
+                    Text('Descrição: ${_textEditingController.text}', style: TextStyle(fontSize: 16, color: Colors.white),),
+                    SizedBox(height: 20),
+                    
+                  ],
+                ),
+              ),
+              
+            ],
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        Row(
+          children: [
+            Expanded(
+              child: TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('VOLTAR'),
+              ),
+            ),
+          ],
+        )
+    ]));
+    }
+  // }
 }
