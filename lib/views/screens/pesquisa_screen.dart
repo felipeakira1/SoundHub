@@ -30,7 +30,7 @@ class _PesquisaTabBarNavigationState extends State<PesquisaTabBarNavigation> wit
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SoundHub'),
+        title: const Text('SoundHub'),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [

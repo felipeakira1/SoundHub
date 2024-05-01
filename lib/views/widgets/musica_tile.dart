@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/musica.dart';
-import 'package:soundhub/views/screens/album_details_screen.dart';
-import 'package:soundhub/views/screens/musica_detalhes_screen.dart';
+import 'package:soundhub/views/screens/detalhes_musica_screen.dart';
 
 class MusicaTile extends StatelessWidget {
   final Musica musica;

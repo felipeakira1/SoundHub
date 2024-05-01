@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
-import 'package:soundhub/managers/usuarios_manager.dart';
+// import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/musica.dart';
-import 'package:soundhub/models/usuario.dart';
-import 'views/screens/homeScreen.dart';
+import 'views/screens/home_screen.dart';
 
 void main() {
   final AlbumMusicsManager albumMusicsManager = AlbumMusicsManager();
-  final UsuariosManager usuariosManager = UsuariosManager();
+  // final UsuariosManager usuariosManager = UsuariosManager();
   _adicionarAlbuns(albumMusicsManager);
   _adicionarMusicas(albumMusicsManager);
   runApp(const MyApp());

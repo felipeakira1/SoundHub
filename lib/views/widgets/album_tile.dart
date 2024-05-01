@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/models/album.dart';
-import 'package:soundhub/views/screens/album_details_screen.dart';
+import 'package:soundhub/views/screens/datalhes_album_screen.dart';
 
 class AlbumTile extends StatelessWidget {
   final Album album;
@@ -11,7 +11,7 @@ class AlbumTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => AlbumDetailsScreen(album: album)),
+        MaterialPageRoute(builder: (context) => DetalhesAlbumScreen(album: album)),
       ),
       child: Container(
         margin: const EdgeInsets.all(8.0),

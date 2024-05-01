@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:soundhub/models/album.dart';
+import 'package:soundhub/models/musica.dart';
+import 'package:soundhub/views/screens/avaliar_musica_screen.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
-import 'package:soundhub/views/screens/album_review_screen.dart';
+import 'package:soundhub/views/screens/avaliar_album_screen.dart';
 
-class AlbumDetailsScreen extends StatelessWidget {
-  final Album album;
-  const AlbumDetailsScreen({super.key, required this.album});
+class TelaDetalhesMusica extends StatelessWidget {
+  final Musica musica;
+  const TelaDetalhesMusica({super.key, required this.musica});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class AlbumDetailsScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.width * 0.6,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(album.imageUrl),
+                      image: AssetImage(musica.imageUrl),
                       fit: BoxFit.cover,
                     ),
                     
@@ -42,9 +43,9 @@ class AlbumDetailsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start, // Alinha os itens ao topo da Column
           
                         children: [
-                          Text(album.nome, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
-                          Text(album.artista, style: TextStyle(fontSize: 18, color: Colors.white),),
-                          Text(album.ano.toString(), style: TextStyle(fontSize: 18, color: Colors.white),),
+                          Text(musica.nome, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
+                          Text(musica.artista, style: TextStyle(fontSize: 18, color: Colors.white),),
+                          Text(musica.ano.toString(), style: TextStyle(fontSize: 18, color: Colors.white),),
                           SizedBox(height: 20),
                           
                         ],
@@ -57,7 +58,7 @@ class AlbumDetailsScreen extends StatelessWidget {
                             Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AlbumReviewScreen(album: album)),
+                              builder: (context) => TelaAvaliarMusica(musica: musica)),
                             );
                           },
                           style: ButtonStyle(
@@ -67,27 +68,7 @@ class AlbumDetailsScreen extends StatelessWidget {
                         ),
                   ],
                 ),
-                Container(
-                    height: 250,
-                    decoration: BoxDecoration(
-                      color: Color(0xff333533),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: ListView.builder(
-                        itemCount: album.musicas.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                          title: Text(album.musicas[index].nome),
-                          subtitle: Text(album.musicas[index].artista),
-                          // Adicione aqui a navegação para a tela de detalhes do álbum ao ser clicado
-                          onTap: () {
-                            
-                          },
-                        );
-                        }
-                    )
-                ),
+                
               ],
             ),
           ),

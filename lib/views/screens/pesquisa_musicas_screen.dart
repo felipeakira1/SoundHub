@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:soundhub/models/album.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 import 'package:soundhub/models/musica.dart';
-import 'package:soundhub/views/widgets/album_tile.dart';
-import 'package:soundhub/views/widgets/app_bars.dart';
-import 'package:soundhub/views/widgets/drawer.dart';
 import 'package:soundhub/views/widgets/musica_tile.dart';
 
 class TelaDePesquisaMusicas extends StatefulWidget {

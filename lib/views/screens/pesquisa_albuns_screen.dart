@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 import 'package:soundhub/views/widgets/album_tile.dart';
-import 'package:soundhub/views/widgets/app_bars.dart';
-import 'package:soundhub/views/widgets/drawer.dart';
 
 class TelaDePesquisaAlbuns extends StatefulWidget {
   @override
@@ -40,7 +38,7 @@ class _TelaDePesquisaAlbunsState extends State<TelaDePesquisaAlbuns> {
                     _searchResults = AlbumMusicsManager().pesquisarAlbums(_query);
                   });
                 },
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Digite aqui o nome do álbum...',
                   contentPadding: EdgeInsets.all(16.0),
                 ),

@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:soundhub/views/screens/pesquisa_albuns_screen.dart';
 import 'package:soundhub/views/screens/perfil_screen.dart';
 import 'package:soundhub/views/screens/pesquisa_screen.dart';
 
@@ -14,7 +13,7 @@ class SoundHubDrawer extends StatelessWidget{
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               child: Text(
                 'Soundhub',
                 style: TextStyle(
