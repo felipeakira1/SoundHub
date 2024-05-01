@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
 import 'package:soundhub/models/album.dart';
-import 'package:soundhub/models/album_manager.dart';
+import 'package:soundhub/models/albuns_musicas_manager.dart';
 import 'package:soundhub/views/screens/searchScreen.dart';
 import 'package:soundhub/views/widgets/album_tile.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final AlbumManager albumManager = AlbumManager();
+  final AlbumMusicsManager albumManager = AlbumMusicsManager();
 
   @override
   Widget build(BuildContext context) {

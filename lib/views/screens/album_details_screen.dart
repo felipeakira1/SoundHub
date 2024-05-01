@@ -6,7 +6,7 @@ import 'package:soundhub/views/widgets/app_bars.dart';
 class AlbumDetailsScreen extends StatelessWidget {
   final Album album;
   const AlbumDetailsScreen({super.key, required this.album});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +38,7 @@ class AlbumDetailsScreen extends StatelessWidget {
         
                       children: [
                         Text(album.nome, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),),
-                        Text(album.autor, style: TextStyle(fontSize: 18, color: Colors.white),),
+                        Text(album.artista, style: TextStyle(fontSize: 18, color: Colors.white),),
                         Text(album.ano.toString(), style: TextStyle(fontSize: 18, color: Colors.white),),
                         SizedBox(height: 20),
                         
@@ -59,16 +59,22 @@ class AlbumDetailsScreen extends StatelessWidget {
               Container(
                   height: 250,
                   decoration: const BoxDecoration(
-                    color: Colors.grey
+                    color: Color(0xff333533)
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  /*child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: albumsGenero.length,
+                  child: ListView.builder(
+                      itemCount: album.musicas.length,
                       itemBuilder: (context, index) {
-                        return AlbumTile(album: albumsGenero[index]);
+                        return ListTile(
+                        title: Text(album.musicas[index].nome),
+                        subtitle: Text(album.musicas[index].artista),
+                        // Adicione aqui a navegação para a tela de detalhes do álbum ao ser clicado
+                        onTap: () {
+                          // Adicione a navegação para a tela de detalhes do álbum aqui
+                        },
+                      );
                       }
-                  )*/
+                  )
               ),
             ],
           ),

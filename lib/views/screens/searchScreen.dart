@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/models/album.dart';
-import 'package:soundhub/models/album_manager.dart'; // Certifique-se de importar o AlbumManager
+import 'package:soundhub/models/albuns_musicas_manager.dart';
+import 'package:soundhub/views/widgets/album_tile.dart';
 
 class TelaDePesquisa extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _TelaDePesquisaState extends State<TelaDePesquisa> {
                 setState(() {
                   _query = value;
                   // Atualiza os resultados da pesquisa sempre que o texto do campo de pesquisa é alterado
-                  _searchResults = AlbumManager().searchAlbums(_query);
+                  _searchResults = AlbumMusicsManager().searchAlbums(_query);
                 });
               },
               decoration: InputDecoration(
@@ -38,19 +39,24 @@ class _TelaDePesquisaState extends State<TelaDePesquisa> {
           ),
           Expanded(
             // Lista para exibir os resultados da pesquisa
-            child: ListView.builder(
-              itemCount: _searchResults.length,
-              itemBuilder: (context, index) {
-                final album = _searchResults[index];
-                return ListTile(
-                  title: Text(album.nome),
-                  subtitle: Text(album.autor),
-                  // Adicione aqui a navegação para a tela de detalhes do álbum ao ser clicado
-                  onTap: () {
-                    // Adicione a navegação para a tela de detalhes do álbum aqui
-                  },
-                );
-              },
+            child: Container(
+              
+              height: 250,
+              child: ListView.builder(
+                itemCount: _searchResults.length,
+                itemBuilder: (context, index) {
+                  final album = _searchResults[index];
+                  return AlbumTile(album: album);
+                  // return ListTile(
+                  //   title: Text(album.nome),
+                  //   subtitle: Text(album.autor),
+                  //   // Adicione aqui a navegação para a tela de detalhes do álbum ao ser clicado
+                  //   onTap: () {
+                  //     // Adicione a navegação para a tela de detalhes do álbum aqui
+                  //   },
+                  // );
+                },
+              ),
             ),
           ),
         ],
