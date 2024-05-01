@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:soundhub/views/screens/searchScreen.dart';
+import 'package:soundhub/views/screens/perfil_screen.dart';
 
 class SoundHubDrawer extends StatelessWidget{
   SoundHubDrawer({super.key});
@@ -33,6 +34,15 @@ class SoundHubDrawer extends StatelessWidget{
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => TelaDePesquisa()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Perfil'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TelaPerfil()),
                 );
               },
             ),

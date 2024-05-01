@@ -1,5 +1,5 @@
-import 'album.dart';
-import 'musica.dart';
+import '../models/album.dart';
+import '../models/musica.dart';
 
 class AlbumMusicsManager {
   // Instancia singleton

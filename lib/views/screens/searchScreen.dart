@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/models/album.dart';
-import 'package:soundhub/models/albuns_musicas_manager.dart';
+import 'package:soundhub/managers/albuns_musicas_manager.dart';
 import 'package:soundhub/views/widgets/album_tile.dart';
 
 class TelaDePesquisa extends StatefulWidget {
@@ -10,8 +10,7 @@ class TelaDePesquisa extends StatefulWidget {
 
 class _TelaDePesquisaState extends State<TelaDePesquisa> {
   String _query = '';
-  List<Album> _searchResults =
-      []; // Lista para armazenar os resultados da pesquisa
+  List<Album> _searchResults = []; // Lista para armazenar os resultados da pesquisa
 
   @override
   Widget build(BuildContext context) {
