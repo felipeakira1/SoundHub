@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
-import 'package:soundhub/managers/pessoas_manager.dart';
+import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/musica.dart';
 import 'package:soundhub/models/usuario.dart';

@@ -33,11 +33,20 @@ class AlbumMusicsManager {
   List<Musica> get musicas => _musicas;
 
   // Método para buscar álbuns com base na consulta de pesquisa
-  List<Album> searchAlbums(String query) {
+  List<Album> pesquisarAlbums(String query) {
     // Filtrar os álbuns cujo nome contenha a consulta de pesquisa
     return _albums
       .where(
         (album) => album.nome.toLowerCase().contains(query.toLowerCase()))
+      .toList();
+
+  }
+
+  List<Musica> pesquisarMusicas(String query) {
+    // Filtrar os álbuns cujo nome contenha a consulta de pesquisa
+    return _musicas
+      .where(
+        (musica) => musica.nome.toLowerCase().contains(query.toLowerCase()))
       .toList();
 
   }

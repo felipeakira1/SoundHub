@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:soundhub/views/screens/searchScreen.dart';
+import 'package:soundhub/views/screens/pesquisa_albuns_screen.dart';
 import 'package:soundhub/views/screens/perfil_screen.dart';
+import 'package:soundhub/views/screens/pesquisa_screen.dart';
 
 class SoundHubDrawer extends StatelessWidget{
   SoundHubDrawer({super.key});
@@ -33,7 +34,7 @@ class SoundHubDrawer extends StatelessWidget{
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TelaDePesquisa()),
+                  MaterialPageRoute(builder: (context) => PesquisaTabBarNavigation()),
                 );
               },
             ),

@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
           children: [
             buildSection('Albuns Pop', 'Pop'),
             buildSection('Albuns Rock', 'Rock'),
+            buildSection('Albuns Rock', 'Sertanejo'),
           ],
         ),
       ),
@@ -45,7 +46,7 @@ class HomePage extends StatelessWidget {
           textAlign: TextAlign.start,
         ),
         Container(
-            height: 270,
+            height: 223,
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
