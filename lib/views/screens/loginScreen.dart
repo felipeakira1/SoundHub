@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:soundhub/views/app_bars.dart';
-import 'package:soundhub/views/cadastroScreen.dart';
+import 'package:soundhub/views/widgets/app_bars.dart';
+import 'package:soundhub/views/screens/cadastroScreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

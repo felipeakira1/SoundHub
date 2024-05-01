@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/models/album_manager.dart';
 import 'package:soundhub/models/album.dart';
-import 'views/homeScreen.dart';
+import 'views/screens/homeScreen.dart';
 
 void main() {
   AlbumManager albumManager = AlbumManager();

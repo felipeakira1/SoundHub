@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'loginScreen.dart';
+import '../screens/loginScreen.dart';
 
 class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title = "SoundHub";
