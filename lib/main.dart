@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 // import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
+import 'package:soundhub/models/artista.dart';
 import 'package:soundhub/models/musica.dart';
 import 'views/screens/home_screen.dart';
 
 void main() {
   final AlbumMusicsManager albumMusicsManager = AlbumMusicsManager();
   // final UsuariosManager usuariosManager = UsuariosManager();
+  _adicionarArtistas(albumMusicsManager);
   _adicionarAlbuns(albumMusicsManager);
   _adicionarMusicas(albumMusicsManager);
   runApp(const MyApp());
@@ -27,15 +29,52 @@ class MyApp extends StatelessWidget {
   }
 }
 
+void _adicionarArtistas(AlbumMusicsManager albumMusicsManager)
+{
+   albumMusicsManager.adicionarArtista(Artista(
+    nome: 'Taylor Swift',
+    anoNascimento: 1989,
+    generoMusical: 'Pop',
+    biografia: 'Taylor Swift é uma cantora e compositora norte-americana...',
+    imageUrl: 'assets/artistas/TaylorSwift.jpg',
+    albuns: [Album(nome: '1989', ano: 2014, genero: 'Pop', artista: 'Taylor Swift', imageUrl: 'assets/albuns/TaylorSwift/1989.jpg')]
+  ));
+
+  albumMusicsManager.adicionarArtista(Artista(
+    nome: 'The Weeknd',
+    anoNascimento: 1990,
+    generoMusical: 'R&B',
+    biografia: 'The Weeknd, nome artístico de Abel Makkonen Tesfaye, é um cantor, compositor e produtor canadense...',
+    imageUrl: 'assets/artistas/TheWeeknd.jpg'
+  ));
+
+  albumMusicsManager.adicionarArtista(Artista(
+    nome: 'Ed Sheeran',
+    anoNascimento: 1991,
+    generoMusical: 'Pop',
+    biografia: 'Ed Sheeran é um cantor e compositor britânico...',
+    imageUrl: 'assets/artistas/EdSheeran.jpg'
+  ));
+}
+
 void _adicionarAlbuns(AlbumMusicsManager albumMusicsManager)
 {
   albumMusicsManager.adicionarAlbum(Album(nome: '1989', ano: 2014, genero: 'Pop', artista: 'Taylor Swift', imageUrl: 'assets/albuns/TaylorSwift/1989.jpg'));
   albumMusicsManager.adicionarAlbum(Album(nome: 'After Hours', ano: 2020, genero: 'Pop', artista: 'The Weeknd', imageUrl: 'assets/albuns/TheWeeknd/AfterHours.jpg'));
   albumMusicsManager.adicionarAlbum(Album(nome: 'Divide', ano: 2017, genero: 'Pop', artista: 'Ed Sheeran', imageUrl: 'assets/albuns/EdSheeran/Divide.jpg'));
   albumMusicsManager.adicionarAlbum(Album(nome: 'Doo-Wops & Hooligans', ano: 2010, genero: 'Pop', artista: 'Bruno Mars', imageUrl: 'assets/albuns/BrunoMars/DooWops_&_Hooligans.jpg'));
+
+  // Rock
   albumMusicsManager.adicionarAlbum(Album(nome: 'Nevermind', ano: 1991, genero: 'Rock', artista: 'Nirvana', imageUrl: 'assets/albuns/Nirvana/Nevermind.jpg'));
   albumMusicsManager.adicionarAlbum(Album(nome: 'Abey Road', ano: 1991, genero: 'Rock', artista: 'Beatles', imageUrl: 'assets/albuns/Beatles/AbbeyRoad.jpg'));
   albumMusicsManager.adicionarAlbum(Album(nome: 'The Dark Side of the Moon', ano: 1973, genero: 'Rock', artista: 'Pink Floyd', imageUrl: 'assets/albuns/PinkFloyd/Dark_Side_of_the_Moon.jpg'));
+  albumMusicsManager.adicionarAlbum(Album(nome: 'Hotel California', ano: 1976, genero: 'Rock', artista: 'Eagles', imageUrl: 'assets/albuns/Eagles/HotelCalifornia.jpg'));
+
+  // Sertanejo
+  albumMusicsManager.adicionarAlbum(Album(nome: 'É Divino', ano: 2014, genero: 'Sertanejo', artista: 'Jorge e Mateus', imageUrl: 'assets/albuns/JorgeMateus/EDivino.jpg'));
+  albumMusicsManager.adicionarAlbum(Album(nome: 'Incerteza', ano: 2016, genero: 'Sertanejo', artista: 'Matheus e Kauan', imageUrl: 'assets/albuns/MatheusKauan/Incerteza.jpg'));
+  albumMusicsManager.adicionarAlbum(Album(nome: 'Ao Vivo em Brasília', ano: 2014, genero: 'Sertanejo', artista: 'Wesley Safadão', imageUrl: 'assets/albuns/WesleySafadao/AoVivoEmBrasilia.jpg'));
+  albumMusicsManager.adicionarAlbum(Album(nome: 'Marília Mendonça: Ao Vivo', ano: 2016, genero: 'Sertanejo', artista: 'Marília Mendonça', imageUrl: 'assets/albuns/MariliaMendonca/AoVivo.jpg'));
 }
 
 void _adicionarMusicas(AlbumMusicsManager albumManager) {

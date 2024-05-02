@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
           children: [
             buildSection('Albuns Pop', 'Pop'),
             buildSection('Albuns Rock', 'Rock'),
-            buildSection('Albuns Rock', 'Sertanejo'),
+            buildSection('Albuns Sertanejo', 'Sertanejo'),
           ],
         ),
       ),

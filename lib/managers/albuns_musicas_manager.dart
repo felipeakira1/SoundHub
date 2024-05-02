@@ -1,3 +1,5 @@
+import 'package:soundhub/models/artista.dart';
+
 import '../models/album.dart';
 import '../models/musica.dart';
 
@@ -15,6 +17,8 @@ class AlbumMusicsManager {
 
   final List<Album> _albums = [];
   final List<Musica> _musicas = [];
+  final List<Artista> _artistas = [];
+
 
 
   void adicionarAlbum(Album album) {
@@ -27,10 +31,16 @@ class AlbumMusicsManager {
       musica.album!.musicas.add(musica);
     }
   }
+
+  void adicionarArtista(Artista artista) {
+    _artistas.add(artista);
+  }
   
   List<Album> get albums => _albums;
 
   List<Musica> get musicas => _musicas;
+
+  List<Artista> get artistas => _artistas;
 
   // Método para buscar álbuns com base na consulta de pesquisa
   List<Album> pesquisarAlbums(String query) {
@@ -47,6 +57,15 @@ class AlbumMusicsManager {
     return _musicas
       .where(
         (musica) => musica.nome.toLowerCase().contains(query.toLowerCase()))
+      .toList();
+
+  }
+
+  List<Artista> pesquisarArtistas(String query) {
+    // Filtrar os álbuns cujo nome contenha a consulta de pesquisa
+    return _artistas
+      .where(
+        (artista) => artista.nome.toLowerCase().contains(query.toLowerCase()))
       .toList();
 
   }

@@ -46,6 +46,36 @@ class SoundHubDrawer extends StatelessWidget{
                 );
               },
             ),
+            ListTile(
+              title: Text('Sair'),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Sair do Programa'),
+                      content: Text('Você realmente deseja sair do programa?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            // Aqui você poderia adicionar lógica adicional para "sair" do seu aplicativo, se necessário
+                            Navigator.of(context).pop();  // Fecha o AlertDialog
+                          },
+                          child: Text('Sim'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();  // Apenas fecha o AlertDialog sem mais ações
+                          },
+                          child: Text('Não'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+
           ],
         ),
       );

@@ -143,7 +143,7 @@ class _TelaAvaliarMusicaState extends State<TelaAvaliarMusica> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Você avaliou o album', style: TextStyle(fontSize:  22, fontWeight: FontWeight.bold, color: Colors.white)),
+          const Text('Você avaliou a musica', style: TextStyle(fontSize:  22, fontWeight: FontWeight.bold, color: Colors.white)),
           SizedBox(height: 20),
           Row(
             children: [

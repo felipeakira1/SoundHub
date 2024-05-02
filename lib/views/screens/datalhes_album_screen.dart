@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:soundhub/models/album.dart';
+import 'package:soundhub/views/screens/detalhes_musica_screen.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
 import 'package:soundhub/views/screens/avaliar_album_screen.dart';
 
-class DetalhesAlbumScreen extends StatelessWidget {
+class TelaDetalhesAlbum extends StatelessWidget {
   final Album album;
-  const DetalhesAlbumScreen({super.key, required this.album});
+  const TelaDetalhesAlbum({super.key, required this.album});
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +82,9 @@ class DetalhesAlbumScreen extends StatelessWidget {
                           title: Text(album.musicas[index].nome),
                           subtitle: Text(album.musicas[index].artista),
                           // Adicione aqui a navegação para a tela de detalhes do álbum ao ser clicado
-                          onTap: () {
-                            
-                          },
+                          onTap:() => Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => TelaDetalhesMusica(musica: album.musicas[index])),
+                          ),
                         );
                         }
                     )

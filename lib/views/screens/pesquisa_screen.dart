@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/views/screens/pesquisa_albuns_screen.dart';
+import 'package:soundhub/views/screens/pesquisa_artistas_screen.dart';
 import 'package:soundhub/views/screens/pesquisa_musicas_screen.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
 import 'package:soundhub/views/widgets/drawer.dart';
@@ -17,7 +18,7 @@ class _PesquisaTabBarNavigationState extends State<PesquisaTabBarNavigation> wit
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -36,6 +37,7 @@ class _PesquisaTabBarNavigationState extends State<PesquisaTabBarNavigation> wit
           tabs: const [
             Tab(icon: Icon(Icons.album), text: 'Álbuns'),
             Tab(icon: Icon(Icons.music_note), text: 'Músicas'),
+            Tab(icon: Icon(Icons.person), text: 'Artistas'),
           ],
         ),
       ),
@@ -44,6 +46,7 @@ class _PesquisaTabBarNavigationState extends State<PesquisaTabBarNavigation> wit
         children: [
           TelaDePesquisaAlbuns(),
           TelaDePesquisaMusicas(),
+          TelaDePesquisaArtistas()
         ],
       ),
       drawer: SoundHubDrawer(),

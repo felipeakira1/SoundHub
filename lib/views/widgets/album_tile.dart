@@ -11,7 +11,7 @@ class AlbumTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => DetalhesAlbumScreen(album: album)),
+        MaterialPageRoute(builder: (context) => TelaDetalhesAlbum(album: album)),
       ),
       child: Container(
         margin: const EdgeInsets.all(8.0),
