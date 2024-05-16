@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:soundhub/bloc/usuario_bloc.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 // import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/artista.dart';
 import 'package:soundhub/models/musica.dart';
+import 'package:soundhub/provider/data_provider.dart';
 import 'views/screens/home_screen.dart';
 
 void main() {
@@ -20,10 +24,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-      theme:  ThemeData(
-        brightness: Brightness.dark,
+    return MultiProvider(
+      providers: [
+        BlocProvider<UsuarioBloc>(create: (context) => UsuarioBloc())
+      ],
+      child: MaterialApp(
+        home: HomePage(),
+        theme:  ThemeData(
+          brightness: Brightness.dark,
+        ),
       ),
     );
   }

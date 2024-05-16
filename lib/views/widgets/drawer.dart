@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:soundhub/views/screens/lista_usuarios_screen.dart';
 import 'package:soundhub/views/screens/perfil_screen.dart';
 import 'package:soundhub/views/screens/pesquisa_screen.dart';
 
@@ -43,6 +44,15 @@ class SoundHubDrawer extends StatelessWidget{
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => TelaPerfil()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Lista de usuarios'),
+              onTap: () {
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => TelaListaUsuarios())
                 );
               },
             ),
