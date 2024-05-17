@@ -55,7 +55,7 @@ class _CadastroPageState extends State<CadastroPage> {
         generosFavoritos: generosEscolhidos,
       );
 
-      Provider.of<UsuarioBloc>(context, listen: false).add(RegisterUsuario(usuario));
+      Provider.of<UsuarioBloc>(context, listen: false).add(RegisterUsuario(usuario: usuario));
       showDialog(
         context: context,
         builder: (BuildContext context) {

@@ -7,7 +7,6 @@ import 'package:soundhub/managers/albuns_musicas_manager.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/artista.dart';
 import 'package:soundhub/models/musica.dart';
-import 'package:soundhub/provider/data_provider.dart';
 import 'views/screens/home_screen.dart';
 
 void main() {
