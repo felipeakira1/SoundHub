@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../provider/data_provider.dart';
+import '../data_providers/user_provider.dart';
 import '../models/usuario.dart';
 
 /*
@@ -47,7 +47,7 @@ class ListState extends UsuarioState {
 class UsuariosEmpty extends UsuarioState {}
 
 class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
-  final DataProvider dataProvider = DataProvider();
+  final UserProvider dataProvider = UserProvider();
 
   UsuarioBloc() : super(UsuarioLoading()) {
     on<FetchUsuarios>(_onFetchUsuarios);
@@ -58,7 +58,7 @@ class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
   Future<void> _onFetchUsuarios(event, emit) async {
     emit(UsuarioLoading());
     try {
-      List<Usuario> users = await dataProvider.fetchAllUsuarios();
+      List<Usuario> users = await dataProvider.getAllUsuarios();
       if(users.isEmpty) {
         emit(UsuariosEmpty());
       } else {
