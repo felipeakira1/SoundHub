@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:soundhub/bloc/usuario_bloc.dart';
-import 'package:soundhub/models/usuario.dart';
+import 'package:soundhub/models/user.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
 import 'package:soundhub/views/widgets/custom_text_form_field.dart';
 
@@ -41,40 +41,40 @@ class _CadastroPageState extends State<CadastroPage> {
   };
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      final List<String> generosEscolhidos = generosSelecionados.entries
-          .where((entry) => entry.value)
-          .map((entry) => entry.key)
-          .toList();
+    // if (_formKey.currentState!.validate()) {
+    //   final List<String> generosEscolhidos = generosSelecionados.entries
+    //       .where((entry) => entry.value)
+    //       .map((entry) => entry.key)
+    //       .toList();
 
-      final usuario = Usuario(
-        nomeCompleto: _nomeController.text,
-        email: _emailController.text,
-        nomeUsuario: _nomeUsuarioController.text,
-        senha: _senhaController.text,
-        generosFavoritos: generosEscolhidos,
-      );
+    //   final usuario = User(
+    //     nomeCompleto: _nomeController.text,
+    //     email: _emailController.text,
+    //     nomeUsuario: _nomeUsuarioController.text,
+    //     senha: _senhaController.text,
+    //     generosFavoritos: generosEscolhidos,
+    //   );
 
-      Provider.of<UsuarioBloc>(context, listen: false).add(RegisterUsuario(usuario: usuario));
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Cadastro realizado'),
-            content: Text('Seu cadastro foi realizado com sucesso!'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // Fechar o dialog
-                  Navigator.pop(context); // Navegar de volta
-                },
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
+    //   Provider.of<UserManagementBloc>(context, listen: false).add(RegisterUsuario(usuario: usuario));
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         title: Text('Cadastro realizado'),
+    //         content: Text('Seu cadastro foi realizado com sucesso!'),
+    //         actions: <Widget>[
+    //           TextButton(
+    //             onPressed: () {
+    //               Navigator.pop(context); // Fechar o dialog
+    //               Navigator.pop(context); // Navegar de volta
+    //             },
+    //             child: Text('OK'),
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
   }
 
   @override

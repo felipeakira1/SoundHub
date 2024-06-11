@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../models/usuario.dart';
+import '../models/user.dart';
 
 class UserProvider {
   final Dio _dio = Dio();
@@ -12,23 +12,28 @@ class UserProvider {
   }
 
   // URL
-  final String _url = "https://localhost:3000";
+  final String _url = "localhost:3000";
 
-  Future<List<Usuario>> getAllUsuarios() async {
-    final response = await _dio.get("$_url/users");
-    if(response.statusCode == 200) {
-      List<Usuario> usuarios = [];
-      // Caso em que nao ha usuarios
-      if(response.data == null) {
-        return usuarios;
+  Future<List<User>> getAllUsers() async {
+    try {
+      final response = await _dio.get(_url);
+      print(response.data);
+      // if(response.statusCode == 200) {
+      //   if(response.data is Map) {
+      //     print("eh um mapa!");
+      //   } else if (response.data is List) {
+      //     List<User> users = response.data.map((e) => User.fromJson(e)).toList();
+      //     return users;
+      //   }
+      // }
+      return [];
+    } catch (e) {
+      if(e is DioError) {
+        print('Dio Error');
       } else {
-        response.data.forEach((id, data) {
-          usuarios.add(Usuario.fromJson(data, id));
-        });
-        return usuarios;
+        print('unexpected error');
       }
-    } else {
-      throw Exception('Failed to fetch users: Status code ${response.statusCode}');
+      throw Exception('Failed to fetch users: $e');
     }
   }
 

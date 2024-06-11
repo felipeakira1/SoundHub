@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/models/usuario.dart';
+import 'package:soundhub/bloc/user/user_management/user_management_bloc.dart';
+import 'package:soundhub/bloc/user/user_management/user_management_event.dart';
+import 'package:soundhub/bloc/user/user_management/user_management_state.dart';
+import 'package:soundhub/models/user.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
-import '../../bloc/usuario_bloc.dart';
 
 class TelaListaUsuarios extends StatelessWidget {
-
   void _deleteUser(BuildContext context, String? id) {
-    final usuarioBloc = BlocProvider.of<UsuarioBloc>(context);
-    usuarioBloc.add(DeleteUsuario(id: id));
+    final userManagementBloc = BlocProvider.of<UserManagementBloc>(context);
+    userManagementBloc.add(DeleteUser(id: id));
   }
 
   @override
   Widget build(BuildContext context) {
-    final userBloc = BlocProvider.of<UsuarioBloc>(context);
-    userBloc.add(FetchUsuarios());
+    final userManagementBloc = BlocProvider.of<UserManagementBloc>(context);
+
+    // Lança evento para carregar todos os usuários
+    userManagementBloc.add(FetchAllUsers());
     
     return Scaffold(
-      appBar: ReturnAppBar(),
-      body: BlocBuilder<UsuarioBloc, UsuarioState>(
+      appBar: const ReturnAppBar(),
+      body: BlocBuilder<UserManagementBloc, UserState>(
         builder: (context, state) {
-          if (state is UsuarioLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is UsuariosEmpty) {
-            return Center(child: Text("Não há usuários cadastrados"));
-          } else if (state is UsuarioError) {
+          if (state is UsersLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is UsersEmpty) {
+            return const Center(child: Text("Não há usuários cadastrados"));
+          } else if (state is UsersError) {
             return Center(child: Text('${state.message}'));
-          } else if (state is ListState) {
+          } else if (state is UsersLoaded) {
             return ListView.builder(
-              itemCount: state.usuarios.length,
+              itemCount: state.users.length,
               itemBuilder: (context, index) {
-                final user = state.usuarios[index];
+                final user = state.users[index];
                 return ListTile(
                   title: Text(user.nomeCompleto),
                   subtitle: Text(user.email),
@@ -47,14 +50,14 @@ class TelaListaUsuarios extends StatelessWidget {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => BlocProvider.of<UsuarioBloc>(context).add(FetchUsuarios()),
-        child: const Icon(Icons.refresh),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => BlocProvider.of<UsuarioBloc>(context).add(FetchUsuarios()),
+      //   child: const Icon(Icons.refresh),
+      // ),
     );
   }
 
-  void _showUserDetails(BuildContext context, Usuario user) {
+  void _showUserDetails(BuildContext context, User user) {
     showModalBottomSheet(
       context: context,
       builder: (context) {

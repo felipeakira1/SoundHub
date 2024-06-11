@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/managers/usuarios_manager.dart';
-import 'package:soundhub/models/usuario.dart';
+import 'package:soundhub/models/user.dart';
 
 class TelaPerfil extends StatefulWidget {
   const TelaPerfil({super.key});

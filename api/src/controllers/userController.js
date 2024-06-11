@@ -1,5 +1,12 @@
 const users = [
-    { id: 1, name: "Felipe" }
+    {
+        id: 1,
+        fullName: "Felipe Akira Nozaki",
+        email: "felipe@gmail.com",
+        username: "felipeakira",
+        password: "123123",
+        favoriteGenres: ""
+    }
 ];
 
 function getAllUsers(req, res) {

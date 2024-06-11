@@ -1,6 +1,6 @@
-import 'package:soundhub/models/usuario.dart';
+import 'package:soundhub/models/user.dart';
 
-import '../models/usuario.dart';
+import '../models/user.dart';
 
 class UsuariosManager {
   // Instancia singleton
@@ -14,16 +14,16 @@ class UsuariosManager {
     return _instance;
   }
 
-  final List<Usuario> _usuarios = [];
-  Usuario? _usuariologado;
+  final List<User> _usuarios = [];
+  User? _usuariologado;
 
-  void adicionarUsuario(Usuario usuario) {
+  void adicionarUsuario(User usuario) {
     _usuarios.add(usuario);
   }
 
   void verificarLogin(String email, String senha)
   {
-    for(Usuario usuario in _usuarios)
+    for(User usuario in _usuarios)
     {
       if(usuario.email == email && usuario.senha == senha)
       {
@@ -38,5 +38,5 @@ class UsuariosManager {
     return _usuariologado != null;
   }
   
-  List<Usuario> get usuarios => _usuarios;
+  List<User> get usuarios => _usuarios;
 }

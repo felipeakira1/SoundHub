@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:soundhub/bloc/usuario_bloc.dart';
+import 'package:soundhub/bloc/user/user_management/user_management_bloc.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 // import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        BlocProvider<UsuarioBloc>(create: (context) => UsuarioBloc())
+        BlocProvider<UserManagementBloc>(create: (context) => UserManagementBloc())
       ],
       child: MaterialApp(
         home: HomePage(),
