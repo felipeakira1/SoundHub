@@ -19,8 +19,7 @@ class Usuario {
         _nomeUsuario = nomeUsuario,
         _senha = senha,
         _generosFavoritos = generosFavoritos;
-
-  // Getters para acessar as informações de fora da classe
+        
   String? get id => _id;
   String get nomeCompleto => _nomeCompleto;
   String get email => _email;
