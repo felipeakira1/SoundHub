@@ -42,12 +42,12 @@ class User {
   // Factory constructor para criar um usuário a partir de um mapa JSON
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'].toString(),
-      fullName: json['fullName'] as String,
-      email: json['email'] as String,
-      username: json['username'] as String,
-      password: json['password'] as String,
-      favoriteGenres: List<String>.from(json['favoriteGenres'] as List<dynamic>),
+      id: json['id']?.toString(),
+      fullName: json['fullName'] ?? 'Default Name',
+      email: json['email'] ?? 'no-email@example.com',
+      username: json['username'] ?? 'defaultUsername',
+      password: json['password'] ?? 'defaultPassword',
+      favoriteGenres: List<String>.from(json['favoriteGenres'] ?? []),
     );
   }
 }

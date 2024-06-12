@@ -8,20 +8,22 @@ class UserManagementBloc extends Bloc<UserEvent, UserState> {
   final UserProvider userProvider = UserProvider();
 
   UserManagementBloc() : super(UsersLoading()) {
-    on<FetchAllUsers>(_onFetchAllUsers);
-  }
-
-  Future<void> _onFetchAllUsers(event, emit) async {
-    emit(UsersLoading());
-    try {
-      List<User> users = await userProvider.getAllUsers();
-      if(users.isEmpty) {
-        emit(UsersEmpty());
-      } else {
-        emit(UsersLoaded(users: users));
+    on<FetchAllUsers>((event, emit) async {
+      emit(UsersLoading());
+      try {
+        List<User> users = await userProvider.getAllUsers();
+        if(users.isEmpty) {
+          emit(UsersEmpty());
+        } else {
+          emit(UsersLoaded(users: users));
+        }
+      } catch (e) {
+        emit(UsersError(message: 'Error fetching users: $e'));
       }
-    } catch (e) {
-      emit(UsersError(message: 'Error fetching users: $e'));
-    }
+    });
+    UserProvider.instance.stream.listen((user) {
+      add(FetchAllUsers());
+    });
   }
+  
 }

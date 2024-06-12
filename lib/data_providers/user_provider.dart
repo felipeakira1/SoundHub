@@ -1,42 +1,50 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import '../models/user.dart';
 
 class UserProvider {
   final Dio _dio = Dio();
 
   // Singleton pattern
-  static final UserProvider _instance = UserProvider._createInstance();
+  static final UserProvider instance = UserProvider._createInstance();
   UserProvider._createInstance();
   factory UserProvider() {
-    return _instance;
+    return instance;
   }
 
   // URL
-  final String _url = "localhost:3000";
+  final String _url = "http://localhost:3000/users";
 
   Future<List<User>> getAllUsers() async {
     try {
-      final response = await _dio.get(_url);
-      print(response.data);
-      // if(response.statusCode == 200) {
-      //   if(response.data is Map) {
-      //     print("eh um mapa!");
-      //   } else if (response.data is List) {
-      //     List<User> users = response.data.map((e) => User.fromJson(e)).toList();
-      //     return users;
-      //   }
-      // }
+      Response response = await _dio.get(_url);
+      if(response.statusCode == 200) {
+        List<User> users = [];
+        response.data.forEach((value) {
+          User user = User.fromJson(value);
+          users.add(user);
+        });
+        return users;
+      }
       return [];
     } catch (e) {
-      if(e is DioError) {
-        print('Dio Error');
-      } else {
-        print('unexpected error');
-      }
       throw Exception('Failed to fetch users: $e');
     }
   }
 
+  final StreamController _controller = StreamController();
+
+  Stream get stream {
+    Socket socket = io("http://localhost:3000", OptionBuilder().setTransports(['websocket']).build());
+    socket.connect();
+    socket.on("USER_CREATED", (data) {
+      _controller.sink.add(data);
+    });
+
+    return _controller.stream;
+  }
   /*
   // Future<Usuario> getUsuario(nomeUsuario) async {
   //   Response response = await _dio.get(prefixUrl + nomeUsuario + "/" + suffixUrl);

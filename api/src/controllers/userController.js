@@ -5,25 +5,31 @@ const users = [
         email: "felipe@gmail.com",
         username: "felipeakira",
         password: "123123",
-        favoriteGenres: ""
+        favoriteGenres: ["Rock", "Jazz"]
     }
 ];
 
-function getAllUsers(req, res) {
+exports.getAllUsers = (req, res) => {
     res.status(200).json(users);
 }
 
-function createUser(req, res) {
-    const { name } = req.body;
+exports.createUser = (req, res, io) => {
+    const { fullName, email, username, password, favoriteGenres } = req.body;
     const newUser = {
-        id: users.length + 1,
-        name
+        id: users.length + 1, // Assumindo IDs sequenciais
+        fullName,
+        email,
+        username,
+        password,
+        favoriteGenres: favoriteGenres || []
     };
     users.push(newUser);
+    io.emit("USER_CREATED", newUser);
     res.status(201).json(newUser);
 }
 
-function getUserById(req, res) {
+
+exports.getUserById = (req, res) => {
     const { id } = req.params;
     const user = users.find(u => u.id === parseInt(id));
     if (user) {
@@ -33,19 +39,24 @@ function getUserById(req, res) {
     }
 }
 
-function updateUser(req, res) {
+exports.updateUser = (req, res, io) => {
     const { id } = req.params;
-    const { name } = req.body;
+    const { fullName, email, username, password, favoriteGenres } = req.body;
     const user = users.find(u => u.id === parseInt(id));
     if (user) {
-        user.name = name;
+        user.fullName = fullName || user.fullName;
+        user.email = email || user.email;
+        user.username = username || user.username;
+        user.password = password || user.password;
+        user.favoriteGenres = favoriteGenres || user.favoriteGenres;
         res.status(200).json(user);
     } else {
         res.status(404).json({ message: "User not found" });
     }
 }
 
-function deleteUser(req, res) {
+
+exports.deleteUser = (req, res) => {
     const { id } = req.params;
     const index = users.findIndex(u => u.id === parseInt(id));
     if (index !== -1) {
@@ -55,5 +66,3 @@ function deleteUser(req, res) {
         res.status(404).json({ message: "User not found" });
     }
 }
-
-module.exports = { getAllUsers, createUser, getUserById, updateUser, deleteUser };

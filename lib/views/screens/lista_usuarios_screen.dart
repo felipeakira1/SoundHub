@@ -35,7 +35,7 @@ class TelaListaUsuarios extends StatelessWidget {
               itemBuilder: (context, index) {
                 final user = state.users[index];
                 return ListTile(
-                  title: Text(user.nomeCompleto),
+                  title: Text(user.fullName),
                   subtitle: Text(user.email),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
@@ -70,11 +70,11 @@ class TelaListaUsuarios extends StatelessWidget {
               Text("Detalhes do Usuário", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Text("ID: ${user.id}"),
-              Text("Nome Completo: ${user.nomeCompleto}"),
+              Text("Nome Completo: ${user.fullName}"),
               Text("Email: ${user.email}"),
-              Text("Nome de Usuário: ${user.nomeUsuario}"),
-              Text("Senha: ${user.senha}"),  // Consider security implications of displaying passwords
-              Text("Gêneros Favoritos: ${user.generosFavoritos.join(', ')}"),
+              Text("Nome de Usuário: ${user.username}"),
+              Text("Senha: ${user.password}"),  // Consider security implications of displaying passwords
+              Text("Gêneros Favoritos: ${user.favoriteGenres.join(', ')}"),
             ],
           ),
         );
