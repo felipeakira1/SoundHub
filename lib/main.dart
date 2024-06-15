@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:soundhub/bloc/user/login/authentication_bloc.dart';
 import 'package:soundhub/bloc/user/user_management/user_management_bloc.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 // import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/models/artista.dart';
 import 'package:soundhub/models/musica.dart';
+import 'package:soundhub/views/screens/wrapper.dart';
 import 'views/screens/home_screen.dart';
 
-void main() {
+// Firebase
+import 'package:firebase_core/firebase_core.dart';
+
+void main () async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyB4x8V_DtFNrs4ogS7mSr7-kf-u5Lz27Ng",
+      authDomain: "soundhub-9fc48.firebaseapp.com",
+      projectId: "soundhub-9fc48",
+      storageBucket: "soundhub-9fc48.appspot.com",
+      messagingSenderId: "163817467383",
+      appId: "1:163817467383:web:237efdecd53f4a510052f2"
+    ));
   final AlbumMusicsManager albumMusicsManager = AlbumMusicsManager();
   // final UsuariosManager usuariosManager = UsuariosManager();
   _adicionarArtistas(albumMusicsManager);
@@ -23,12 +38,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        BlocProvider<UserManagementBloc>(create: (context) => UserManagementBloc())
-      ],
+    return BlocProvider(
+      create: (BuildContext context) {
+        return AuthenticationBloc();
+      },
       child: MaterialApp(
-        home: HomePage(),
+        home: Wrapper(),
         theme:  ThemeData(
           brightness: Brightness.dark,
         ),
