@@ -16,6 +16,7 @@ dependencies:
   socket_io_client: ^2.0.3+1
   firebase_core: ^2.1.0
   firebase_auth: ^4.0.2
+  formz: ^0.7.0
 
 dev_dependencies:
   flutter_test:

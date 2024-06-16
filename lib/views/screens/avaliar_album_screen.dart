@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
 
@@ -14,7 +12,7 @@ class AlbumReviewScreen extends StatefulWidget {
 
 class _AlbumReviewScreenState extends State<AlbumReviewScreen> {
   int _notaSelecionada = 0;
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
 
   Widget _buildBola(int index) {
     bool selecionada = index < _notaSelecionada;
@@ -27,10 +25,10 @@ class _AlbumReviewScreenState extends State<AlbumReviewScreen> {
       child: Container(
         width: 30,
         height: 30,
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: selecionada ? Color(0xffDB1675) : Color(0xff333533),
+          color: selecionada ? const Color(0xffDB1675) : const Color(0xff333533),
         ),
       ),
     );

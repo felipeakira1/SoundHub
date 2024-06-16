@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:soundhub/bloc/usuario_bloc.dart';
 import 'package:soundhub/models/user.dart';
 import 'package:soundhub/views/widgets/app_bars.dart';
 import 'package:soundhub/views/widgets/custom_text_form_field.dart';

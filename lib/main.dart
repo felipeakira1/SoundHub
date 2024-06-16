@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/user/login/authentication_bloc.dart';
+import 'package:soundhub/authentication/bloc/authentication_bloc.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 // import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
@@ -37,11 +37,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) {
-        return AuthenticationBloc();
-      },
+      create: (context) => AuthenticationBloc(),
       child: MaterialApp(
-        home: Wrapper(),
+        home: const Wrapper(),
         theme:  ThemeData(
           brightness: Brightness.dark,
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/login_screen.dart';
+import '../../login/view/login_page.dart';
 
 class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title = "SoundHub";
@@ -29,7 +29,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
+              MaterialPageRoute(builder: (context) => LoginPage()),
             );
             
           },
