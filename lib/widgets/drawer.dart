@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/views/admin/add_album_page.dart';
 import 'package:soundhub/views/profile/perfil_screen.dart';
-import 'package:soundhub/views/search/pesquisa_screen.dart';
+import 'package:soundhub/views/search/search_page.dart';
 
 class CustomDrawer extends StatelessWidget{
   CustomDrawer({super.key});
@@ -34,7 +34,7 @@ class CustomDrawer extends StatelessWidget{
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PesquisaTabBarNavigation()),
+                  MaterialPageRoute(builder: (context) => SearchPage()),
                 );
               },
             ),

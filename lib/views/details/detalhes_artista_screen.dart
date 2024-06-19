@@ -57,7 +57,7 @@ class TelaDetalhesArtista extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(), // to disable ListView's scrolling
                       itemCount: artista.albuns!.length,
                       itemBuilder: (context, index) {
-                        return AlbumTile(album: artista.albuns![index]); // Substitua por seu próprio widget de álbum
+                        return AlbumTile(album: artista.albuns![index],); // Substitua por seu próprio widget de álbum
                       },
                     ),
                   ],

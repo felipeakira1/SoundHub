@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/authentication/authentication_bloc.dart';
+import 'package:soundhub/bloc/search/bloc/search_album_bloc.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 // import 'package:soundhub/managers/usuarios_manager.dart';
 import 'package:soundhub/models/album.dart';
@@ -12,17 +13,17 @@ import 'package:soundhub/views/wrapper.dart';
 // Firebase
 import 'package:firebase_core/firebase_core.dart';
 
-void main () async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: AppConfig.firebaseApiKey,
-        authDomain: AppConfig.firebaseAuthDomain,
-        projectId: AppConfig.firebaseProjectId,
-        storageBucket: AppConfig.firebaseStorageBucket,
-        messagingSenderId: AppConfig.firebaseMessagingSenderId,
-        appId: AppConfig.firebaseAppId,
-    ));
+      options: const FirebaseOptions(
+    apiKey: AppConfig.firebaseApiKey,
+    authDomain: AppConfig.firebaseAuthDomain,
+    projectId: AppConfig.firebaseProjectId,
+    storageBucket: AppConfig.firebaseStorageBucket,
+    messagingSenderId: AppConfig.firebaseMessagingSenderId,
+    appId: AppConfig.firebaseAppId,
+  ));
   runApp(const MyApp());
 }
 
@@ -31,11 +32,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthenticationBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthenticationBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchAlbumBloc(),
+        ),
+      ],
       child: MaterialApp(
         home: const Wrapper(),
-        theme:  ThemeData(
+        theme: ThemeData(
           brightness: Brightness.dark,
         ),
       ),

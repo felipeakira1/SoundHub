@@ -17,7 +17,7 @@ class FirestoreAlbumDataProvider {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> addAlbum(Album album) async {
-    await _firestore.collection('albuns').add(album.toMap()).then((value) => print("Added ALBUM"));
+    await _firestore.collection('albuns').add(album.toMap());
   }
 
   Future<List<Album>> getAllAlbuns() async {
@@ -25,7 +25,7 @@ class FirestoreAlbumDataProvider {
 
     List<Album> albuns = [];
 
-    querySnapshot.docs.forEach((element) {
+    for (var element in querySnapshot.docs) {
       Album album = Album(
         name: element['name'] ?? '',
         genre: element['genre'] ?? '',
@@ -34,10 +34,17 @@ class FirestoreAlbumDataProvider {
         imageUrl: element['imageUrl'] ?? '',
       );
       albuns.add(album);
-    });
-    
-    albuns.forEach((element) => print(element.genre));
+    }
     return albuns;
+  }
+
+  Future<List<Album>> searchAlbums(String query) async {
+    String lowerCaseQuery = query.toLowerCase();
+    List<Album> allAlbuns = await getAllAlbuns();
+    List<Album> filteredAlbuns = allAlbuns.where((album) {
+      return album.name.toLowerCase().contains(lowerCaseQuery);
+    }).toList();
+    return filteredAlbuns;
   }
 
   Stream<QuerySnapshot> get albunsStream {
