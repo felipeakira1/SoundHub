@@ -47,7 +47,7 @@ class AlbumMusicsManager {
     // Filtrar os álbuns cujo nome contenha a consulta de pesquisa
     return _albums
       .where(
-        (album) => album.nome.toLowerCase().contains(query.toLowerCase()))
+        (album) => album.name.toLowerCase().contains(query.toLowerCase()))
       .toList();
 
   }
@@ -65,7 +65,7 @@ class AlbumMusicsManager {
     // Filtrar os álbuns cujo nome contenha a consulta de pesquisa
     return _artistas
       .where(
-        (artista) => artista.nome.toLowerCase().contains(query.toLowerCase()))
+        (artista) => artista.name.toLowerCase().contains(query.toLowerCase()))
       .toList();
 
   }

@@ -1,10 +1,10 @@
 import 'package:soundhub/models/album.dart';
 
 class Artista {
-  final String _nome;
-  final int _anoNascimento;
-  final String _generoMusical;
-  final String _biografia;
+  final String _name;
+  final int _birthYear;
+  final String _musicalGenre;
+  final String _biography;
   final String _imageUrl;
   final List<Album>? _albuns;
 
@@ -15,17 +15,17 @@ class Artista {
     required String biografia,
     required String imageUrl,
     List<Album>? albuns,
-  })  : _nome = nome,
-        _anoNascimento = anoNascimento,
-        _generoMusical = generoMusical,
-        _biografia = biografia,
+  })  : _name = nome,
+        _birthYear = anoNascimento,
+        _musicalGenre = generoMusical,
+        _biography = biografia,
         _imageUrl = imageUrl,
         _albuns = albuns;
 
-  String get nome => _nome;
-  int get anoNascimento => _anoNascimento;
-  String get generoMusical => _generoMusical;
-  String get biografia => _biografia;
+  String get name => _name;
+  int get birthYear => _birthYear;
+  String get musicalGenre => _musicalGenre;
+  String get biography => _biography;
   String get imageUrl => _imageUrl;
   List<Album>? get albuns => _albuns;
 }
