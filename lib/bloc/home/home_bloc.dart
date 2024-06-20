@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:soundhub/bloc/home/bloc/home_event.dart';
-import 'package:soundhub/bloc/home/bloc/home_state.dart';
+import 'package:soundhub/bloc/home/home_event.dart';
+import 'package:soundhub/bloc/home/home_state.dart';
 import 'package:soundhub/data_providers/firestore_album_data_provider.dart';
 import 'package:soundhub/models/album.dart';
 

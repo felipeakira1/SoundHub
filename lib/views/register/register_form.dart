@@ -1,15 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/login/login_bloc.dart';
-import 'package:soundhub/bloc/login/login_state.dart';
 import 'package:soundhub/bloc/register/register_bloc.dart';
 import 'package:soundhub/bloc/register/register_event.dart';
 import 'package:soundhub/bloc/register/register_state.dart';
 import 'package:soundhub/widgets/custom_elevated_button.dart';
 import 'package:soundhub/widgets/custom_text_form_field.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});

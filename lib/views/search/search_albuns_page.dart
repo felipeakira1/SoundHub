@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/search/bloc/search_album_bloc.dart';
-import 'package:soundhub/bloc/search/bloc/search_album_event.dart';
-import 'package:soundhub/bloc/search/bloc/search_album_state.dart';
+import 'package:soundhub/bloc/search/search_album_bloc.dart';
+import 'package:soundhub/bloc/search/search_album_event.dart';
+import 'package:soundhub/bloc/search/search_album_state.dart';
 import 'package:soundhub/widgets/album_tile.dart';
 
 class SearchAlbunsPage extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/home/bloc/home_bloc.dart';
-import 'package:soundhub/bloc/home/bloc/home_event.dart';
-import 'package:soundhub/bloc/home/bloc/home_state.dart';
+import 'package:soundhub/bloc/home/home_bloc.dart';
+import 'package:soundhub/bloc/home/home_event.dart';
+import 'package:soundhub/bloc/home/home_state.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/widgets/album_tile.dart';
 

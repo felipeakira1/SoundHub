@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:soundhub/managers/albuns_musicas_manager.dart';
 import 'package:soundhub/models/musica.dart';
 import 'package:soundhub/widgets/musica_tile.dart';
 
 class TelaDePesquisaMusicas extends StatefulWidget {
+  const TelaDePesquisaMusicas({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TelaDePesquisaMusicasState createState() => _TelaDePesquisaMusicasState();
 }
 
 class _TelaDePesquisaMusicasState extends State<TelaDePesquisaMusicas> {
   String _query = '';
   List<Musica> _searchResults = AlbumMusicsManager().musicas; // Lista para armazenar os resultados da pesquisa
-  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +63,5 @@ class _TelaDePesquisaMusicasState extends State<TelaDePesquisaMusicas> {
           ],
         ),
     );
-  }
-
-  void _onItemTapped(int index)
-  {
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 }

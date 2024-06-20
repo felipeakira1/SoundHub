@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:soundhub/bloc/search/bloc/search_album_event.dart';
-import 'package:soundhub/bloc/search/bloc/search_album_state.dart';
+import 'package:soundhub/bloc/search/search_album_event.dart';
+import 'package:soundhub/bloc/search/search_album_state.dart';
 import 'package:soundhub/data_providers/firestore_album_data_provider.dart';
 import 'package:soundhub/models/album.dart';
 

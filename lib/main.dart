@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/authentication/authentication_bloc.dart';
-import 'package:soundhub/bloc/search/bloc/search_album_bloc.dart';
-import 'package:soundhub/managers/albuns_musicas_manager.dart';
-// import 'package:soundhub/managers/usuarios_manager.dart';
-import 'package:soundhub/models/album.dart';
-import 'package:soundhub/models/artista.dart';
-import 'package:soundhub/models/musica.dart';
+import 'package:soundhub/bloc/search/search_album_bloc.dart';
 import 'package:soundhub/config/app_config.dart';
 import 'package:soundhub/views/wrapper.dart';
 

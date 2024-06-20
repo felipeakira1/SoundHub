@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/search/bloc/search_album_bloc.dart';
+import 'package:soundhub/bloc/search/search_album_bloc.dart';
 import 'package:soundhub/views/search/search_albuns_page.dart';
 import 'package:soundhub/views/search/pesquisa_artistas_screen.dart';
 import 'package:soundhub/views/search/pesquisa_musicas_screen.dart';
