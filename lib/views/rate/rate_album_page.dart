@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/widgets/app_bars.dart';
 
-class AlbumReviewScreen extends StatefulWidget {
+class RateAlbumPage extends StatefulWidget {
   final Album album;
-  const AlbumReviewScreen({super.key, required this.album});
+  const RateAlbumPage({super.key, required this.album});
 
   @override
-  State<AlbumReviewScreen> createState() => _AlbumReviewScreenState();
+  State<RateAlbumPage> createState() => _RateAlbumPageState();
 }
 
-class _AlbumReviewScreenState extends State<AlbumReviewScreen> {
+class _RateAlbumPageState extends State<RateAlbumPage> {
   int _notaSelecionada = 0;
   final TextEditingController _textEditingController = TextEditingController();
 

@@ -13,28 +13,46 @@ import 'package:soundhub/models/user.dart' as modelUser;
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final FirestoreUserDataProvider _firestoreUserDataProvider = FirestoreUserDataProvider();
   final FirebaseAuthenticationService _firebaseAuthenticationService = FirebaseAuthenticationService();
-  final BuildContext context;
 
-  ProfileBloc(this.context) : super(ProfileInitial()) {
+  ProfileBloc() : super(ProfileInitial()) {
     on<ProfileLoad>((event, emit) async {
       emit(ProfileLoading());
       try {
-        AuthenticationState authState = context.read<AuthenticationBloc>().state;
-        if(authState is Authenticated) {
-          String? email = authState.user.email;
-          if(email != null) {
-            Map<String, dynamic>? userDetails = await _firestoreUserDataProvider.getUserByEmail(email);
-            if(userDetails != null) {
-              
-              emit(ProfileLoaded(user: modelUser.User.fromJson(userDetails)));
-            }
-          } else {
-            emit(ProfileEmpty());
+        String? email = FirebaseAuth.instance.currentUser?.email;
+        if(email != null) {
+          Map<String, dynamic>? userDetails = await _firestoreUserDataProvider.getUserByEmail(email);
+          if(userDetails != null) {
+            
+            emit(ProfileLoaded(user: modelUser.User.fromJson(userDetails)));
           }
-
+        } else {
+          emit(ProfileEmpty());
         }
       }catch (e) {
         emit(ProfileError(message: "Error: $e"));
+      }
+    });
+
+    on<ProfileUpdate>((event, emit) async {
+      emit(ProfileLoading());
+      try {
+        await _firebaseAuthenticationService.updateEmail(event.email);
+        Map<String, dynamic>? userDetails = await _firestoreUserDataProvider.getUserByEmail(event.email);
+        if(userDetails != null) {
+          emit(ProfileLoaded(user: modelUser.User.fromJson(userDetails)));
+        }
+      } catch (e) {
+        emit(ProfileError(message: 'Error: $e'));
+      }
+    });
+
+    on<ProfileSignOut>((event, emit) async {
+      emit(ProfileLoading());
+      try {
+        await _firebaseAuthenticationService.signOut();
+        emit(ProfileNotAuthenticated());
+      } catch(e) {
+        emit(ProfileError(message: 'Erro ao sair: $e'));
       }
     });
   }

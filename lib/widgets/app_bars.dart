@@ -24,21 +24,6 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: const TextStyle(color: Colors.white)
       ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
-            );
-            
-          },
-          child: const Text(
-            'Login',
-            style: TextStyle(color: Colors.white)
-          ),
-        )
-      ],
     );
   }
 

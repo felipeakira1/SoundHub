@@ -38,7 +38,6 @@ class _SearchPageState extends State<SearchPage>
             controller: _tabController,
             tabs: const [
                 Tab(icon: Icon(Icons.album), text: 'Albuns'),
-                Tab(icon: Icon(Icons.music_note), text: 'Musics'),
                 Tab(icon: Icon(Icons.person), text: 'Artists'),
               ],
           ),

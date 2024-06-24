@@ -2,3 +2,14 @@
 abstract class ProfileEvent {}
 
 class ProfileLoad extends ProfileEvent {}
+
+class ProfileUpdate extends ProfileEvent {
+  String name;
+  String email;
+  ProfileUpdate({
+    required this.name,
+    required this.email,
+  });
+}
+
+class ProfileSignOut extends ProfileEvent {}

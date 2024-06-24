@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/widgets/app_bars.dart';
-import 'package:soundhub/views/rate/avaliar_album_screen.dart';
+import 'package:soundhub/views/rate/rate_album_page.dart';
 
-class TelaDetalhesAlbum extends StatelessWidget {
+class DetailsAlbumPage extends StatelessWidget {
   final Album album;
-  const TelaDetalhesAlbum({super.key, required this.album});
+  const DetailsAlbumPage({super.key, required this.album});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class TelaDetalhesAlbum extends StatelessWidget {
                             Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AlbumReviewScreen(album: album)),
+                              builder: (context) => RateAlbumPage(album: album)),
                             );
                           },
                           style: ButtonStyle(

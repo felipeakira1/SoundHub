@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/authentication/authentication_bloc.dart';
+import 'package:soundhub/bloc/profile/profile_bloc.dart';
 import 'package:soundhub/bloc/search/search_album_bloc.dart';
 import 'package:soundhub/config/app_config.dart';
 import 'package:soundhub/views/wrapper.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchAlbumBloc(),
         ),
+        BlocProvider(create: (context) => ProfileBloc()),
       ],
       child: MaterialApp(
         home: const Wrapper(),

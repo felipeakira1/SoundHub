@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soundhub/models/album.dart';
-import 'package:soundhub/views/details/datalhes_album_screen.dart';
+import 'package:soundhub/views/details/details_album_page.dart';
 
 class AlbumTile extends StatelessWidget {
   final Album album;
@@ -11,7 +11,7 @@ class AlbumTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => TelaDetalhesAlbum(album: album)),
+        MaterialPageRoute(builder: (context) => DetailsAlbumPage(album: album)),
       ),
       child: AspectRatio(
         aspectRatio: 3/5,

@@ -11,7 +11,7 @@ class ProfileEmpty extends ProfileState {}
 
 class ProfileLoaded extends ProfileState {
   User user;
-  
+
   ProfileLoaded({
     required this.user,
   });
@@ -23,3 +23,14 @@ class ProfileError extends ProfileState {
     required this.message,
   });
 }
+
+class ProfileUpdating extends ProfileState {}
+
+class ProfileUpdated extends ProfileState {
+  User user;
+  ProfileUpdated({
+    required this.user,
+  });
+}
+
+class ProfileNotAuthenticated extends ProfileState {}

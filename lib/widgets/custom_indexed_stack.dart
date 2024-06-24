@@ -7,25 +7,18 @@ import 'package:soundhub/views/search/search_page.dart';
 
 class CustomIndexedStack extends StatelessWidget {
   final int currentIndex;
-  final List<Widget> screens = [
-    const HomePage(),
-    const SearchPage(),
-    BlocProvider(
-      create: (context) => ProfileBloc(context),
-      child: const ProfilePage(),
-    ),
-  ];
 
-  CustomIndexedStack({
-    super.key,
-    required this.currentIndex,
-  });
+  CustomIndexedStack({super.key, required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
     return IndexedStack(
       index: currentIndex,
-      children: screens,
+      children: [
+        const HomePage(),
+        const SearchPage(),
+        const ProfilePage(),
+      ],
     );
   }
 }
