@@ -6,22 +6,20 @@ import 'package:soundhub/bloc/register/register_event.dart';
 import 'package:soundhub/bloc/register/register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  FirebaseAuthenticationService _firebaseAuthenticationService = FirebaseAuthenticationService();
-  FirestoreUserDataProvider _firestoreUserService = FirestoreUserDataProvider();
+  final FirebaseAuthenticationService _firebaseAuthentication = FirebaseAuthenticationService();
+  final FirestoreUserDataProvider _firestoreUserDataProvider = FirestoreUserDataProvider();
 
   RegisterBloc() : super(RegisterInitial()) {
     on<RegisterSubmitted>((RegisterSubmitted event, Emitter<RegisterState> emit) async {
       emit(RegisterLoading());
       try {
-        User? user = await _firebaseAuthenticationService.createUserWithEmailAndPassword(event.email, event.password);
+        User? user = await _firebaseAuthentication.createUserWithEmailAndPassword(event.email, event.password);
         if(user != null) {
-          await _firestoreUserService.insertUser(user, {
+          await _firestoreUserDataProvider.insertUser(user, {
             "name": event.name,
-            "email": event.email,
-            "password": event.password,
             "username": event.username
           });
-          await _firebaseAuthenticationService.signOut();
+          await _firebaseAuthentication.signOut();
           emit(RegisterSuccessful());
         }
       } catch (e) {

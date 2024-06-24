@@ -19,7 +19,7 @@ class _SearchPageState extends State<SearchPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -49,7 +49,6 @@ class _SearchPageState extends State<SearchPage>
                 create: (context) => SearchAlbumBloc(),
                 child: const SearchAlbunsPage(),
               ),
-              TelaDePesquisaMusicas(),
               TelaDePesquisaArtistas()
             ],
           ),

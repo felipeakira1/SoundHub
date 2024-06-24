@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -6,8 +7,17 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final FormFieldValidator<String>? validator;
   final String? initialValue;
+  final bool enabled;
 
-  const CustomTextFormField({super.key, this.controller, required this.text, this.obscureText = false, this.validator, this.initialValue});
+  const CustomTextFormField({
+    super.key,
+    this.controller,
+    required this.text,
+    this.obscureText = false,
+    this.validator,
+    this.initialValue,
+    this.enabled = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +36,7 @@ class CustomTextFormField extends StatelessWidget {
           controller: controller,
           obscureText: obscureText,
           initialValue: controller == null ? initialValue : null,
+          enabled: enabled,
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.black54,

@@ -2,25 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestoreUserDataProvider {
-  final FirebaseFirestore _firestoreUserService = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> insertUser(User user, Map<String, dynamic> userDetails) async {
-    await _firestoreUserService.collection('users').add(userDetails);
+    await _firestore.collection('users').doc(user.uid).set(userDetails);
   }
 
-  Future<Map<String, dynamic>?> getUserByEmail(String? email) async {
+  Future<Map<String, dynamic>?> getUserByUid(String uid) async {
     try {
-      QuerySnapshot querySnapshot = await _firestoreUserService.collection('users').where('email', isEqualTo: email).get();
-      if(querySnapshot.docs.isNotEmpty) {
-        return querySnapshot.docs.first.data() as Map<String, dynamic>;
-      } else {
-        print("No user found for that email");
-        return null;
-      }
-    } catch (e) {
-      // Trata qualquer exceção que possa ocorrer durante a consulta
-      print('Error retrieving user by email: $e');
-      return null;
+      DocumentSnapshot userDoc = await _firestore.collection('users').doc(uid).get();
+      return userDoc.data() as Map<String, dynamic>?;
+    } catch(e) {
+      throw Exception("Failed to get user by uid: $e");
+    }
+  }
+
+  Future<void> updateUser(String uid, Map<String, dynamic> updateDetails) async {
+    try {
+      await _firestore.collection('users').doc(uid).update(updateDetails);
+    } catch(e) {
+      throw Exception("Failed to update uesr: $e");
     }
   }
 }

@@ -1,48 +1,53 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/authentication/authentication_bloc.dart';
-import 'package:soundhub/bloc/authentication/authentication_state.dart';
 import 'package:soundhub/bloc/profile/profile_event.dart';
 import 'package:soundhub/bloc/profile/profile_state.dart';
 import 'package:soundhub/data_providers/firebase_authentication_service.dart';
 import 'package:soundhub/data_providers/firestore_user_data_provider.dart';
-import 'package:soundhub/models/user.dart' as modelUser;
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final FirestoreUserDataProvider _firestoreUserDataProvider = FirestoreUserDataProvider();
   final FirebaseAuthenticationService _firebaseAuthenticationService = FirebaseAuthenticationService();
+  final FirestoreUserDataProvider _firestoreUserDataProvider = FirestoreUserDataProvider();
 
   ProfileBloc() : super(ProfileInitial()) {
-    on<ProfileLoad>((event, emit) async {
+
+    on<LoadProfile>((event, emit) async {
       emit(ProfileLoading());
-      try {
-        String? email = FirebaseAuth.instance.currentUser?.email;
-        if(email != null) {
-          Map<String, dynamic>? userDetails = await _firestoreUserDataProvider.getUserByEmail(email);
-          if(userDetails != null) {
-            
-            emit(ProfileLoaded(user: modelUser.User.fromJson(userDetails)));
-          }
-        } else {
+      User? currentUser = _firebaseAuthenticationService.getCurrentUser();
+      if(currentUser != null && currentUser.email != null) {
+        try {
+            Map<String, dynamic>? userDetails = await _firestoreUserDataProvider.getUserByUid(currentUser.uid);
+            if(userDetails != null) {
+              emit(ProfileLoaded(email: currentUser.email, name: userDetails['name'], username: userDetails['username']));
+            } else {
+              emit(ProfileEmpty());
+            }
+        } catch (e) {
+          emit(ProfileLoadError(message: "Error retrieving user data: $e"));
+        }
+      } else {
           emit(ProfileEmpty());
         }
-      }catch (e) {
-        emit(ProfileError(message: "Error: $e"));
-      }
     });
 
-    on<ProfileUpdate>((event, emit) async {
+    on<UpdateProfile>((event, emit) async {
       emit(ProfileLoading());
       try {
-        await _firebaseAuthenticationService.updateEmail(event.email);
-        Map<String, dynamic>? userDetails = await _firestoreUserDataProvider.getUserByEmail(event.email);
-        if(userDetails != null) {
-          emit(ProfileLoaded(user: modelUser.User.fromJson(userDetails)));
+        User? currentUser = _firebaseAuthenticationService.getCurrentUser();
+        if(currentUser != null) {
+          await _firestoreUserDataProvider.updateUser(currentUser.uid, {
+            'name': event.name,
+            'username': event.username
+          });
+          emit(ProfileUpdated(email: currentUser.email, name: event.name, username: event.username));
+        } else {
+          emit(ProfileUpdateError(message: 'No authenticated user found'));
         }
       } catch (e) {
-        emit(ProfileError(message: 'Error: $e'));
+        emit(ProfileUpdateError(message: '$e'));
       }
     });
 
@@ -50,9 +55,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(ProfileLoading());
       try {
         await _firebaseAuthenticationService.signOut();
-        emit(ProfileNotAuthenticated());
       } catch(e) {
-        emit(ProfileError(message: 'Erro ao sair: $e'));
+        emit(ProfileLoadError(message: 'Erro ao sair: $e'));
       }
     });
   }

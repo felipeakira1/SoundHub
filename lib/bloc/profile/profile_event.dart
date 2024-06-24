@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 abstract class ProfileEvent {}
 
-class ProfileLoad extends ProfileEvent {}
+class LoadProfile extends ProfileEvent {}
 
-class ProfileUpdate extends ProfileEvent {
+class UpdateProfile extends ProfileEvent {
   String name;
-  String email;
-  ProfileUpdate({
+  String username;
+  UpdateProfile({
     required this.name,
-    required this.email,
+    required this.username,
   });
 }
 

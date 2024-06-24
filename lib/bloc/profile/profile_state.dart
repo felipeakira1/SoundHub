@@ -10,16 +10,19 @@ class ProfileLoading extends ProfileState {}
 class ProfileEmpty extends ProfileState {}
 
 class ProfileLoaded extends ProfileState {
-  User user;
-
+  String? email;
+  String name;
+  String username;
   ProfileLoaded({
-    required this.user,
+    required this.email,
+    required this.name,
+    required this.username,
   });
 }
 
-class ProfileError extends ProfileState {
+class ProfileLoadError extends ProfileState {
   String message;
-  ProfileError({
+  ProfileLoadError({
     required this.message,
   });
 }
@@ -27,10 +30,19 @@ class ProfileError extends ProfileState {
 class ProfileUpdating extends ProfileState {}
 
 class ProfileUpdated extends ProfileState {
-  User user;
+  String? email;
+  String name;
+  String username;
   ProfileUpdated({
-    required this.user,
+    required this.email,
+    required this.name,
+    required this.username,
   });
 }
 
-class ProfileNotAuthenticated extends ProfileState {}
+class ProfileUpdateError extends ProfileState {
+  String message;
+  ProfileUpdateError({
+    required this.message,
+  });
+}

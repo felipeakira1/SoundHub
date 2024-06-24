@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:soundhub/bloc/album_reviews/album_reviews_bloc.dart';
+import 'package:soundhub/bloc/album_reviews/album_reviews_state.dart';
 import 'package:soundhub/widgets/app_bars.dart';
 
 class AlbumReviewsPage extends StatefulWidget {
@@ -12,7 +14,7 @@ class AlbumReviewsPage extends StatefulWidget {
 class _AlbumReviewsPageState extends State<AlbumReviewsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: ReturnAppBar(),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -20,8 +22,12 @@ class _AlbumReviewsPageState extends State<AlbumReviewsPage> {
           children: [
             Text('Albuns Ratings'),
             Expanded(
-              child: BlocBuilder<PlacehodlerBloc, PlaceholderState(
-                builder: (context, state) {},
+              child: BlocBuilder<AlbumReviewsBloc, AlbumReviewsState>(
+                builder: (context, state) {
+                  return const Center(
+                      child: Text('Loading'),
+                    );
+                },
               ),
             ),
           ],

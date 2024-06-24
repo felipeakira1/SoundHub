@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/profile/profile_bloc.dart';
 import 'package:soundhub/bloc/profile/profile_event.dart';
@@ -17,107 +18,119 @@ class UpdateProfilePage extends StatefulWidget {
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   @override
   void initState() {
+    context.read<ProfileBloc>().add(LoadProfile());
     super.initState();
-    context.read<ProfileBloc>().add(ProfileLoad());
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ReturnAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
+      appBar: const ReturnAppBar(),
+      body: BlocListener<ProfileBloc, ProfileState>(
+        listener: (context, state) {
+          if(state is ProfileUpdated) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profile updated successfully!')));
+          } else if (state is ProfileUpdateError) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
             children: [
-              const Text('Profile', style: TextStyle(fontSize: 24),),
+              const Text('Profile', style: TextStyle(fontSize: 24)),
               Expanded(
-                child: BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, state) {
-                    if (state is ProfileEmpty) {
-                      return const Center(child: Text('Nenhum álbum encontrado.'));
-                    } else if (state is ProfileError) {
-                      return Center(child: Text(state.message));
-                    } else if (state is ProfileLoaded) {
-                      _nameController.text = state.user.fullName;
-                      _emailController.text = state.user.email;
-                      return Form(
-                        key: _formKey,
-                        child: ListView(
-                          children: [
-                            CustomTextFormField(
-                              controller: _nameController,
-                              text: "Name",
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Por favor, insira seu nome';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            CustomTextFormField(
-                              controller: _emailController,
-                              text: "E-mail",
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Por favor, insira seu e-mail';
-                                }
-                                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                                  return 'Por favor, insira um e-mail válido';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            BlocBuilder<ProfileBloc, ProfileState>(
-                              builder: (context, state) {
-                                if(state is ProfileUpdating) {
-                                  return const CircularProgressIndicator();
-                                }
-                                if(state is ProfileError) {
-                                  return Center(
-                                    child: Text(state.message),
-                                  );
-                                }
-                                return CustomElevatedButton(
-                                    title: "UPDATE",
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        String name = _nameController.text.trim();
-                                        String email = _emailController.text.trim();
-                                        context.read<ProfileBloc>().add(ProfileUpdate(name: name, email: email));
-                                      }
-                                    });
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
+                child: _buildProfileForm(),
               ),
-              
             ],
           ),
+        ),
       ),
     );
   }
 
+  Widget _buildProfileForm() {
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, state) {
+        if (state is ProfileEmpty) {
+          return const Center(
+              child: Text('No profile data found.'));
+        } else if (state is ProfileLoadError) {
+          return Center(child: Text(state.message));
+        } else if (state is ProfileLoaded) {
+          _nameController.text = state.name;
+          _usernameController.text = state.username;
+          return _buildForm();
+        } else if (state is ProfileUpdated) {
+          _nameController.text = state.name;
+          _usernameController.text = state.username;
+          return _buildForm();
+        } 
+        else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  Widget _buildForm() {
+    return Form(
+      key: _formKey,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            CustomTextFormField(
+              controller: _nameController,
+              text: "Name",
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira seu nome';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            CustomTextFormField(
+              controller: _usernameController,
+              text: "Username",
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira seu e-mail';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            CustomElevatedButton(
+              title: "UPDATE",
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  String name = _nameController.text.trim();
+                  String username =
+                      _usernameController.text.trim();
+                  context.read<ProfileBloc>().add(
+                      UpdateProfile(
+                          name: name, username: username));
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   @override
   void dispose() {
     _nameController.dispose();
-    _emailController.dispose();
+    _usernameController.dispose();
     super.dispose();
   }
 }
