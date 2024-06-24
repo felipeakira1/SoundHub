@@ -10,15 +10,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final FirestoreAlbumDataProvider _albumDataProvider = FirestoreAlbumDataProvider();
 
   HomeBloc() : super(HomeInitial()) {
-    _albumDataProvider.albunsStream.listen((QuerySnapshot snapshot) {
+    _albumDataProvider.albumsStream.listen((QuerySnapshot snapshot) {
       add(LoadHomePage());
     });
 
     on<LoadHomePage>((LoadHomePage event, Emitter<HomeState> emit) async {
       emit(HomeLoading());
       try {
-        List<Album> albuns = await _albumDataProvider.getAllAlbuns();
-        emit(HomeLoaded(albuns: albuns));
+        List<Album> albums = await _albumDataProvider.getAllAlbums();
+        emit(HomeLoaded(albuns: albums));
       } catch(e) {
         emit(HomeError(message: 'Error: ${e}'));
       }

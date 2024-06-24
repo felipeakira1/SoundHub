@@ -48,16 +48,16 @@ class HomePage extends StatelessWidget {
     return Center(child: Text("Error: $message"));
   }
 
-  Widget buildSection(String title, String genero, List<Album> albums) {
-    List<Album> albumsGenero = [];
-    for (var element in albums) {
-      if(element.genre == genero) {
-        albumsGenero.add(element);
-      }
-    }
+  Widget buildSection(String title, String genre, List<Album> albums) {
+    var albumsByGenre = albums.where((album) => album.genre == genre).toList();
 
-    if (albumsGenero.isEmpty) {
-      return Center(child: Text("No albums found for the genre $genero"));
+    if (albumsByGenre.isEmpty) {
+      return Center(
+        child: Text(
+          "No albums found for the genre $genre",
+          style: const TextStyle(color: Colors.white70),
+        )
+      );
     }
 
     return Column(
@@ -68,14 +68,15 @@ class HomePage extends StatelessWidget {
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
           textAlign: TextAlign.start,
         ),
-        SizedBox(height: 8),
-        Container(
+        const SizedBox(height: 10),
+        SizedBox(
           height: 250,
-          child: ListView.builder(
+          child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: albumsGenero.length,
+            itemCount: albumsByGenre.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 10,),
             itemBuilder: (context, index) {
-              return AlbumTile(album: albumsGenero[index]);
+              return AlbumTile(album: albumsByGenre[index]);
             },
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:soundhub/data_providers/firestore_artist_data_provider.dart';
 import 'package:soundhub/models/album.dart';
+import 'package:soundhub/models/artist.dart';
 
 class FirestoreAlbumDataProvider {
   // Instancia singleton
@@ -15,39 +17,36 @@ class FirestoreAlbumDataProvider {
 
   // Adaptar para classe abstrata
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final FirestoreArtistDataProvider _firestoreArtistDataProvider = FirestoreArtistDataProvider();
+  
   Future<void> addAlbum(Album album) async {
-    await _firestore.collection('albuns').add(album.toMap());
+    await _firestore.collection('albums').add(album.toMap());
   }
 
-  Future<List<Album>> getAllAlbuns() async {
-    QuerySnapshot querySnapshot = await _firestore.collection('albuns').get();
+  Future<List<Album>> getAllAlbums() async {
+    QuerySnapshot querySnapshot = await _firestore.collection('albums').get();
+    List<Album> albums = [];
 
-    List<Album> albuns = [];
-
-    for (var element in querySnapshot.docs) {
-      Album album = Album(
-        name: element['name'] ?? '',
-        genre: element['genre'] ?? '',
-        year: element['year'] ?? 0,
-        artistId: element['artistId'] ?? '',
-        imageUrl: element['imageUrl'] ?? '',
-      );
-      albuns.add(album);
+    for (var doc in querySnapshot.docs) {
+      var albumData = doc.data() as Map<String, dynamic>;
+      Album album = Album.fromMap(albumData);
+      Artist artist = await _firestoreArtistDataProvider.fetchArtistById(album.artistId);
+      album.artistName = artist.name;
+      albums.add(album);
     }
-    return albuns;
+    return albums;
   }
 
   Future<List<Album>> searchAlbums(String query) async {
     String lowerCaseQuery = query.toLowerCase();
-    List<Album> allAlbuns = await getAllAlbuns();
-    List<Album> filteredAlbuns = allAlbuns.where((album) {
+    List<Album> allAlbums = await getAllAlbums();
+    List<Album> filteredAlbums = allAlbums.where((album) {
       return album.name.toLowerCase().contains(lowerCaseQuery);
     }).toList();
-    return filteredAlbuns;
+    return filteredAlbums;
   }
 
-  Stream<QuerySnapshot> get albunsStream {
-    return _firestore.collection('albuns').snapshots();
+  Stream<QuerySnapshot> get albumsStream {
+    return _firestore.collection('albums').snapshots();
   }
 }

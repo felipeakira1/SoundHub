@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:soundhub/models/artista.dart';
-import 'package:soundhub/views/details/detalhes_artista_screen.dart';
+import 'package:soundhub/models/artist.dart';
+import 'package:soundhub/views/details/details_artist_page.dart';
 
 class ArtistaTile extends StatelessWidget {
-  final Artista artista;
+  final Artist artista;
 
   const ArtistaTile({Key? key, required this.artista}) : super(key: key);
 
@@ -20,7 +20,7 @@ class ArtistaTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TelaDetalhesArtista(artista: artista),
+              builder: (context) => DetailsArtistPage(artist: artista),
             ),
           );
         },
@@ -37,17 +37,17 @@ class ArtistaTile extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 artista.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
                 overflow: TextOverflow.ellipsis, // Adiciona "..." se o texto for muito longo
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                artista.musicalGenre,
+                'test',
                 style: TextStyle(fontSize: 14),
                 overflow: TextOverflow.ellipsis,
               ),

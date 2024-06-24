@@ -1,11 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Album {
   final String name;
   final String genre;
   final int year;
-  final String artistId;
   final String imageUrl;
+  final String artistId;
+  String? artistName;
+
 
   Album({
     required this.name,
@@ -15,8 +15,7 @@ class Album {
     required this.imageUrl,
   });
 
-  factory Album.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data() as Map;
+  factory Album.fromMap(Map<String, dynamic> data) {
     return Album(
       name: data['name'] ?? '',
       genre: data['genre'] ?? '',
@@ -25,11 +24,6 @@ class Album {
       imageUrl: data['imageUrl'] ?? '',
     );
   }
-
-  get ano => null;
-
-  get musicas => null;
-
   Map<String, dynamic> toMap() {
     return {
       'name': name,
