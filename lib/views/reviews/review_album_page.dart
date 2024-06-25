@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/album_reviews_bloc.dart';
+import 'package:soundhub/bloc/album_review_bloc.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/widgets/album_info.dart';
 import 'package:soundhub/widgets/app_bars.dart';
@@ -20,53 +20,80 @@ class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
   int _rating = 0;
 
   @override
+  void initState() {
+    super.initState();
+    context
+        .read<AlbumReviewBloc>()
+        .add(CheckForExistingReview(albumId: widget.album.uid ?? ''));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ReturnAppBar(),
-      body: BlocListener<AlbumReviewsBloc, AlbumReviewState>(
+      body: BlocListener<AlbumReviewBloc, AlbumReviewState>(
         listener: (context, state) {
+          if (state is ExistingReviewFound) {
+            _rating = state.review.rating;
+            _descriptionController.text = state.review.description;
+          }
           if (state is AddAlbumReviewSuccess) {
             ScaffoldMessenger.of(context)
               ..removeCurrentSnackBar()
-              ..showSnackBar(const SnackBar(content: Text('Review Added Successfully!')));
+              ..showSnackBar(
+                  const SnackBar(content: Text('Review Added Successfully!')));
           } else if (state is AddAlbumReviewFailure) {
             ScaffoldMessenger.of(context)
               ..removeCurrentSnackBar()
               ..showSnackBar(SnackBar(content: Text(state.message)));
           }
         },
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: BlocBuilder<AlbumReviewBloc, AlbumReviewState>(
+          builder: (context, state) {
+            if(state is CheckForExistingReview) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is AlbumReviewError) {
+              return Center(child: Text(state.message),);
+            } else {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
                 children: [
-                  Expanded(child: Image.asset(widget.album.imageUrl)),
-                  const SizedBox(width: 20),
-                  Expanded(child: AlbumInformation(title: widget.album.name, informations: [ widget.album.artistName ?? '', widget.album.year.toString(),])),
-          
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(child: Image.asset(widget.album.imageUrl)),
+                      const SizedBox(width: 20),
+                      Expanded(
+                          child: AlbumInformation(
+                              title: widget.album.name,
+                              informations: [
+                            widget.album.artistName,
+                            widget.album.year.toString(),
+                          ])),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  buildRatingSection(),
+                  const SizedBox(height: 20),
+                  buildDescriptionField(),
+                  const SizedBox(height: 20),
+                  CustomElevatedButton(
+                    title: 'SUBMIT REVIEW',
+                    onPressed: () {
+                      context.read<AlbumReviewBloc>().add(
+                            SubmitAlbumReview(
+                                rating: _rating,
+                                description: _descriptionController.text,
+                                albumId: widget.album.uid ?? ''),
+                          );
+                    },
+                  ),
                 ],
               ),
-              const SizedBox(height: 20),
-              buildRatingSection(),
-              const SizedBox(height: 20),
-              buildDescriptionField(),
-              const SizedBox(height: 20),
-              CustomElevatedButton(
-                title: 'SUBMIT REVIEW',
-                onPressed: () {
-                  context.read<AlbumReviewsBloc>().add(
-                    SubmitAlbumReview(
-                      rating: _rating,
-                      description: _descriptionController.text,
-                      albumId: widget.album.uid ?? ''
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+            );
+            }
+          },
         ),
       ),
     );

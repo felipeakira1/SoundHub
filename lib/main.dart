@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/album_reviews_bloc.dart';
+import 'package:soundhub/bloc/album_review_bloc.dart';
 import 'package:soundhub/bloc/authentication/authentication_bloc.dart';
 import 'package:soundhub/bloc/profile/profile_bloc.dart';
 import 'package:soundhub/bloc/search/search_album_bloc.dart';
+import 'package:soundhub/bloc/user_album_reviews_bloc.dart';
 import 'package:soundhub/config/app_config.dart';
 import 'package:soundhub/views/wrapper.dart';
 
@@ -13,7 +14,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      options: const FirebaseOptions(
+    options: const FirebaseOptions(
     apiKey: AppConfig.firebaseApiKey,
     authDomain: AppConfig.firebaseAuthDomain,
     projectId: AppConfig.firebaseProjectId,
@@ -41,7 +42,10 @@ class MyApp extends StatelessWidget {
           create: (context) => ProfileBloc()
         ),
         BlocProvider(
-          create: (context) => AlbumReviewsBloc(),
+          create: (context) => AlbumReviewBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UserAlbumReviewsBloc(),
         )
       ],
       child: MaterialApp(

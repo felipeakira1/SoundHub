@@ -1,3 +1,5 @@
+import 'package:soundhub/models/artist.dart';
+
 class Album {
   String? uid;
   final String name;
@@ -5,7 +7,8 @@ class Album {
   final int year;
   final String imageUrl;
   final String artistId;
-  String? artistName;
+  late String artistName;
+  late Artist artist;
 
 
   Album({
@@ -35,7 +38,6 @@ class Album {
       'year': year,
       'artistId': artistId,
       'imageUrl': imageUrl,
-      // No need to include songs here since they will be managed separately
     };
   }
 }

@@ -1,36 +1,35 @@
 class Artist {
-  final String _name;
-  final int _birthYear;
-  final List<String> _musicalGenres;
-  final String _biography;
-  final String _imageUrl;
+  final String name;
+  final int birthYear;
+  final List<String> musicalGenres;
+  final String biography;
+  final String imageUrl;
 
   Artist({
-    required String name,
-    required int birthYear,
-    required List<String> musicalGenres,
-    required String biography,
-    required String imageUrl,
-  })  : _name = name,
-        _birthYear = birthYear,
-        _musicalGenres = musicalGenres,
-        _biography = biography,
-        _imageUrl = imageUrl;
+    required this.name,
+    required this.birthYear,
+    required this.musicalGenres,
+    required this.biography,
+    required this.imageUrl,
+  });
 
-  String get name => _name;
-  int get birthYear => _birthYear;
-  List<String> get musicalGenres => _musicalGenres;
-  String get biography => _biography;
-  String get imageUrl => _imageUrl;
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'birthYear': birthYear,
+      'musicalGenres': musicalGenres,
+      'biography': biography,
+      'imageUrl': imageUrl,
+    };
+  }
 
-  factory Artist.fromJson(Map<String, dynamic> json) {
+  factory Artist.fromMap(Map<String, dynamic> map) {
     return Artist(
-      name: json['name'] ?? 'Unknown Artist',
-      birthYear: json['birthYear'] ?? 0,
-      musicalGenres: (json['musicalGenres'] as List).map((genre) => genre.toString()).toList(),
-      biography: json['biography'] ?? 'No biography available',
-      imageUrl: json['imageUrl'] ?? '',
+      name: map['name'] as String,
+      birthYear: map['birthYear'] as int,
+      musicalGenres: (map['musicalGenres'] as List<dynamic>).map((genre) => genre.toString()).toList(),
+      biography: map['biography'] as String,
+      imageUrl: map['imageUrl'] as String,
     );
-}
-
+  }
 }

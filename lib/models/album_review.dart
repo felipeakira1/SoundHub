@@ -1,8 +1,12 @@
+import 'package:soundhub/models/album.dart';
+
 class AlbumReview {
+  late String uid;
   final int rating;
   final String description;
-  final String albumId;
   final String userId;
+  final String albumId;
+  late Album album;
 
   AlbumReview({
     required this.rating,

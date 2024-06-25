@@ -20,7 +20,8 @@ class FirestoreAlbumDataProvider {
   final FirestoreArtistDataProvider _firestoreArtistDataProvider = FirestoreArtistDataProvider();
   
   Future<void> addAlbum(Album album) async {
-    await _firestore.collection('albums').add(album.toMap());
+    DocumentReference docRef = await _firestore.collection('albums').add(album.toMap());
+    await docRef.update({'uid': docRef.id});
   }
 
   Future<List<Album>> getAllAlbums() async {
@@ -37,6 +38,23 @@ class FirestoreAlbumDataProvider {
     return albums;
   }
 
+  Future<Album> fetchAlbumById(String albumId) async {
+    DocumentSnapshot doc = await _firestore.collection('albums').doc(albumId).get();
+    if(!doc.exists) {
+      throw Exception('Album not found');
+    }
+
+    Album album = Album.fromMap(doc.data() as Map<String, dynamic>);
+
+    try {
+      Artist artist = await _firestoreArtistDataProvider.fetchArtistById(album.artistId);
+      album.artist = artist;
+      return album;
+    } catch(e) {
+      throw Exception('Failed to fetch artist details');
+    }
+  }
+  
   Future<List<Album>> searchAlbums(String query) async {
     String lowerCaseQuery = query.toLowerCase();
     List<Album> allAlbums = await getAllAlbums();
