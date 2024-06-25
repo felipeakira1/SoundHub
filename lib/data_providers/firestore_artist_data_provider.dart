@@ -21,14 +21,19 @@ class FirestoreArtistDataProvider {
   }
 
   Future<List<Artist>> fetchAllArtists() async {
+  try {
     QuerySnapshot snapshot = await _firestore.collection('artists').get();
     List<Artist> artists = [];
-    for(var doc in snapshot.docs) {
+    for (var doc in snapshot.docs) {
       Artist artist = Artist.fromMap(doc.data() as Map<String, dynamic>);
       artists.add(artist);
     }
     return artists;
+  } catch (e) {
+    throw Exception('Failed to fetch artists: $e');
   }
+}
+
 
   Future<Artist> fetchArtistById(String artistId) async {
     DocumentSnapshot doc = await _firestore.collection('artists').doc(artistId).get();
@@ -40,11 +45,15 @@ class FirestoreArtistDataProvider {
   }
 
   Future<List<Artist>> searchArtists(String query) async {
-    String lowerCaseQuery = query.toLowerCase();
-    List<Artist> allArtists = await fetchAllArtists();
-    List<Artist> filteredArtists = allArtists.where((artist) {
-      return artist.name.toLowerCase().contains(lowerCaseQuery);
-    }).toList();
-    return filteredArtists;
+    try {
+      String lowerCaseQuery = query.toLowerCase();
+      List<Artist> allArtists = await fetchAllArtists();
+      List<Artist> filteredArtists = allArtists.where((artist) {
+        return artist.name.toLowerCase().contains(lowerCaseQuery);
+      }).toList();
+      return filteredArtists;
+    } catch(e) {
+      throw Exception(e.toString());
+    }
   }
 }
