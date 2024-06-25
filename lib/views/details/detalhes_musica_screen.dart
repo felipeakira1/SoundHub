@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:soundhub/models/musica.dart';
-import 'package:soundhub/views/rate/avaliar_musica_screen.dart';
+import 'package:soundhub/views/reviews/avaliar_musica_screen.dart';
 import 'package:soundhub/widgets/app_bars.dart';
 
 class TelaDetalhesMusica extends StatelessWidget {

@@ -1,4 +1,5 @@
 class Album {
+  String? uid;
   final String name;
   final String genre;
   final int year;
@@ -8,6 +9,7 @@ class Album {
 
 
   Album({
+    this.uid,
     required this.name,
     required this.genre,
     required this.year,
@@ -17,6 +19,7 @@ class Album {
 
   factory Album.fromMap(Map<String, dynamic> data) {
     return Album(
+      uid: data['uid'] as String,
       name: data['name'] ?? '',
       genre: data['genre'] ?? '',
       year: data['year'] ?? 0,
@@ -26,6 +29,7 @@ class Album {
   }
   Map<String, dynamic> toMap() {
     return {
+      'ui': uid,
       'name': name,
       'genre': genre,
       'year': year,

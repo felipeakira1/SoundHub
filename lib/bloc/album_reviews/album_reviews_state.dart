@@ -23,3 +23,18 @@ class AlbumReviewsError extends AlbumReviewsState {
     required this.message,
   });
 }
+
+class AddAlbumReviewLoading extends AlbumReviewsState {}
+
+class AddAlbumReviewSuccess extends AlbumReviewsState {
+  final AlbumReview albumReview;
+
+  AddAlbumReviewSuccess({required this.albumReview});
+}
+
+class AddAlbumReviewFailure extends AlbumReviewsState {
+  final String message;
+  AddAlbumReviewFailure({
+    required this.message,
+  });
+}

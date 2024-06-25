@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:soundhub/models/artist.dart';
 import 'package:soundhub/views/details/details_artist_page.dart';
 
-class ArtistaTile extends StatelessWidget {
+class ArtistTile extends StatelessWidget {
   final Artist artista;
 
-  const ArtistaTile({Key? key, required this.artista}) : super(key: key);
+  const ArtistTile({Key? key, required this.artista}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
