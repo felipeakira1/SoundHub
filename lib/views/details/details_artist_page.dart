@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:soundhub/models/artist.dart';
-import 'package:soundhub/widgets/album_tile.dart';
 import 'package:soundhub/widgets/app_bars.dart';
 
 class DetailsArtistPage extends StatelessWidget {
@@ -14,11 +12,11 @@ class DetailsArtistPage extends StatelessWidget {
       appBar: const ReturnAppBar(),  // Supondo que você tenha uma AppBar com funcionalidade de retorno
       body: SingleChildScrollView(
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.8, // 80% da largura da tela
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: MediaQuery.of(context).size.width * 0.6,
                   child: Image.asset(artist.imageUrl),
@@ -41,7 +39,7 @@ class DetailsArtistPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(artist.biography, style: TextStyle(fontSize: 16, color: Colors.white), textAlign: TextAlign.justify),
+                  child: Text(artist.biography, style: const TextStyle(fontSize: 16, color: Colors.white), textAlign: TextAlign.justify),
                 ),
                 const SizedBox(height: 20),
               ],

@@ -9,7 +9,6 @@ class SearchAlbumBloc extends Bloc<SearchAlbumEvent, SearchAlbumState> {
 
   SearchAlbumBloc() : super(SearchAlbumInitial()) {
     on<SearchAlbumQuery>((event, emit) async {
-      print(event.query);
       try {
         emit(SearchAlbumLoading());
         List<Album> searchedAlbuns = await _firestoreAlbumDataProvider.searchAlbums(event.query);

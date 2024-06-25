@@ -4,7 +4,7 @@ import 'package:soundhub/bloc/login/login_event.dart';
 import 'package:soundhub/bloc/login/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  FirebaseAuthenticationService _firebaseAuthenticationService = FirebaseAuthenticationService();
+  final FirebaseAuthenticationService _firebaseAuthenticationService = FirebaseAuthenticationService();
 
   LoginBloc() : super(LoginInitial()) {
     on<LoginSubmitted>((LoginSubmitted event, Emitter<LoginState> emit) async {

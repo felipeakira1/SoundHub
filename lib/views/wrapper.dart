@@ -12,9 +12,9 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(builder: (context, state) {
       if(state is Authenticated) {
-        return IndexedPage();
+        return const IndexedPage();
       } else  {
-        return LoginPage();
+        return const LoginPage();
       }
     });
   }

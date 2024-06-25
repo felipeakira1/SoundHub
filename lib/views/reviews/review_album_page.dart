@@ -1,15 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/album_reviews/album_reviews_bloc.dart';
-import 'package:soundhub/bloc/album_reviews/album_reviews_events.dart';
-import 'package:soundhub/bloc/album_reviews/album_reviews_state.dart';
+import 'package:soundhub/bloc/album_reviews_bloc.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/widgets/album_info.dart';
 import 'package:soundhub/widgets/app_bars.dart';
 import 'package:soundhub/widgets/custom_elevated_button.dart';
-import 'package:soundhub/widgets/custom_image.dart';
 import 'package:soundhub/widgets/custom_text_form_field.dart';
 
 class ReviewAlbumPage extends StatefulWidget {
@@ -21,7 +16,6 @@ class ReviewAlbumPage extends StatefulWidget {
 }
 
 class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
-  final _formKey = GlobalKey<FormState>();
   final TextEditingController _descriptionController = TextEditingController();
   int _rating = 0;
 
@@ -29,7 +23,7 @@ class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const ReturnAppBar(),
-      body: BlocListener<AlbumReviewsBloc, AlbumReviewsState>(
+      body: BlocListener<AlbumReviewsBloc, AlbumReviewState>(
         listener: (context, state) {
           if (state is AddAlbumReviewSuccess) {
             ScaffoldMessenger.of(context)
@@ -63,7 +57,7 @@ class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
                 title: 'SUBMIT REVIEW',
                 onPressed: () {
                   context.read<AlbumReviewsBloc>().add(
-                    AddAlbumReview(
+                    SubmitAlbumReview(
                       rating: _rating,
                       description: _descriptionController.text,
                       albumId: widget.album.uid ?? ''

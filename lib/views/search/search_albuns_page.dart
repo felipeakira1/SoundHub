@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/search/search_album_bloc.dart';
 import 'package:soundhub/bloc/search/search_album_event.dart';
@@ -52,11 +50,11 @@ class _SearchAlbunsPageState extends State<SearchAlbunsPage> {
           child: BlocBuilder<SearchAlbumBloc, SearchAlbumState>(
             builder: (context, state) {
               if (state is SearchAlbumEmpty) {
-                return Center(child: Text('Nenhum álbum encontrado.'));
+                return const Center(child: Text('Nenhum álbum encontrado.'));
               } else if (state is SearchAlbumLoaded) {
                 final albuns = state.searchedAlbuns;
                 return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3, // Número de colunas na grade
                     crossAxisSpacing: 8.0, // Espaçamento entre as colunas
                     mainAxisSpacing: 8.0, // Espaçamento entre as linhas

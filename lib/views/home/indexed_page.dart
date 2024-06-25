@@ -5,7 +5,10 @@ import 'package:soundhub/widgets/custom_bottom_navigation_bar.dart';
 import 'package:soundhub/widgets/drawer.dart'; // Importe o CustomBottomNavigationBar
 
 class IndexedPage extends StatefulWidget {
+  const IndexedPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _IndexedPageState createState() => _IndexedPageState();
 }
 
@@ -21,7 +24,7 @@ class _IndexedPageState extends State<IndexedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       appBar: HomePageAppBar(),
       body: CustomIndexedStack(currentIndex: _currentIndex),
       bottomNavigationBar: CustomBottomNavigationBar(

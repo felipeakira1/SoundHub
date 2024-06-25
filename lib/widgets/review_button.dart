@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/views/reviews/review_album_page.dart';
 
+// ignore: must_be_immutable
 class ReviewButton extends StatelessWidget {
   Album album;
   ReviewButton({

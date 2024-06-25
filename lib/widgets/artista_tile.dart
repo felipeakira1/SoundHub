@@ -5,7 +5,7 @@ import 'package:soundhub/views/details/details_artist_page.dart';
 class ArtistTile extends StatelessWidget {
   final Artist artista;
 
-  const ArtistTile({Key? key, required this.artista}) : super(key: key);
+  const ArtistTile({super.key, required this.artista});
 
   @override
   Widget build(BuildContext context) {

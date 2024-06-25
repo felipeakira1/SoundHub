@@ -20,7 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         List<Album> albums = await _albumDataProvider.getAllAlbums();
         emit(HomeLoaded(albuns: albums));
       } catch(e) {
-        emit(HomeError(message: 'Error: ${e}'));
+        emit(HomeError(message: 'Error: $e'));
       }
     });
   }

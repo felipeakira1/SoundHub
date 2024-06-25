@@ -16,7 +16,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
   final TextEditingController _yearController = TextEditingController();
   final TextEditingController _artistIdController = TextEditingController();
   final TextEditingController _imageUrlController = TextEditingController();
-  FirestoreAlbumDataProvider _dataProvider = FirestoreAlbumDataProvider();
+  final FirestoreAlbumDataProvider _dataProvider = FirestoreAlbumDataProvider();
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
@@ -30,18 +30,21 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
 
       try {
         await _dataProvider.addAlbum(album);
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Album added successfully')),
+          const SnackBar(content: Text('Album added successfully')),
         );
       } catch (e) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to add album: $e')),
         );
       }
 
       // Optionally, you can show a success message or navigate to another page
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Album added successfully')),
+        const SnackBar(content: Text('Album added successfully')),
       );
     }
   }
@@ -50,17 +53,17 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Album'),
+        title: const Text('Add Album'),
       ),  
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Album Name'),
+                decoration: const InputDecoration(labelText: 'Album Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter album name';
@@ -70,7 +73,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               ),
               TextFormField(
                 controller: _genreController,
-                decoration: InputDecoration(labelText: 'Genre'),
+                decoration: const InputDecoration(labelText: 'Genre'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter genre';
@@ -80,7 +83,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               ),
               TextFormField(
                 controller: _yearController,
-                decoration: InputDecoration(labelText: 'Year'),
+                decoration: const InputDecoration(labelText: 'Year'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -94,7 +97,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               ),
               TextFormField(
                 controller: _artistIdController,
-                decoration: InputDecoration(labelText: 'Artist ID'),
+                decoration: const InputDecoration(labelText: 'Artist ID'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter artist ID';
@@ -104,7 +107,7 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
               ),
               TextFormField(
                 controller: _imageUrlController,
-                decoration: InputDecoration(labelText: 'Image URL'),
+                decoration: const InputDecoration(labelText: 'Image URL'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter image URL';
@@ -112,10 +115,10 @@ class _AddAlbumPageState extends State<AddAlbumPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Add Album'),
+                child: const Text('Add Album'),
               ),
             ],
           ),

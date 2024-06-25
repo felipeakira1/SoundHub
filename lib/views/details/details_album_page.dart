@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:soundhub/models/album.dart';
 import 'package:soundhub/widgets/album_info.dart';
 import 'package:soundhub/widgets/app_bars.dart';
-import 'package:soundhub/views/reviews/review_album_page.dart';
 import 'package:soundhub/widgets/custom_image.dart';
 import 'package:soundhub/widgets/review_button.dart';
 

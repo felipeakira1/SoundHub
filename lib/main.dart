@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soundhub/bloc/album_reviews/album_reviews_bloc.dart';
+import 'package:soundhub/bloc/album_reviews_bloc.dart';
 import 'package:soundhub/bloc/authentication/authentication_bloc.dart';
 import 'package:soundhub/bloc/profile/profile_bloc.dart';
 import 'package:soundhub/bloc/search/search_album_bloc.dart';
