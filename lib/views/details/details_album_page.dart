@@ -22,7 +22,7 @@ class DetailsAlbumPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(child: AlbumInformation(title: album.name, informations: [album.artistName])),
+                Expanded(child: AlbumInformation(album: album,)),
                 ReviewButton(album: album),
               ],
             ),

@@ -65,12 +65,7 @@ class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
                       Expanded(child: Image.asset(widget.album.imageUrl)),
                       const SizedBox(width: 20),
                       Expanded(
-                          child: AlbumInformation(
-                              title: widget.album.name,
-                              informations: [
-                            widget.album.artistName,
-                            widget.album.year.toString(),
-                          ])),
+                          child: AlbumInformation(album: widget.album)),
                     ],
                   ),
                   const SizedBox(height: 20),

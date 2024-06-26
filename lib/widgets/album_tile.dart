@@ -36,7 +36,7 @@ class AlbumTile extends StatelessWidget {
             
               const SizedBox(height: 8.0),
               Text(album.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0), maxLines: 1, overflow: TextOverflow.ellipsis,),
-              Text(album.artistName, style: const TextStyle(fontSize: 14.0)),
+              Text(album.artist.name, style: const TextStyle(fontSize: 14.0)),
               Text(album.year.toString(), style: const TextStyle(fontSize: 14.0)),
             ],
           ),

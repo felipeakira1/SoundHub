@@ -7,7 +7,6 @@ class Album {
   final int year;
   final String imageUrl;
   final String artistId;
-  late String artistName;
   late Artist artist;
 
 

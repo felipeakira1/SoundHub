@@ -31,3 +31,15 @@ flutter:
   assets:
     - assets/artistas/
     - assets/albuns/
+    - assets/albuns/TaylorSwift/
+    - assets/albuns/TheWeeknd/
+    - assets/albuns/EdSheeran/
+    - assets/albuns/BrunoMars/
+    - assets/albuns/Nirvana/
+    - assets/albuns/Beatles/
+    - assets/albuns/PinkFloyd/
+    - assets/albuns/Eagles/
+    - assets/albuns/MatheusKauan/
+    - assets/albuns/JorgeMateus/
+    - assets/albuns/WesleySafadao/
+    - assets/albuns/MariliaMendonca/

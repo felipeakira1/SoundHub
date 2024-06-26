@@ -17,7 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<LoadHomePage>((LoadHomePage event, Emitter<HomeState> emit) async {
       emit(HomeLoading());
       try {
-        List<Album> albums = await _albumDataProvider.getAllAlbums();
+        List<Album> albums = await _albumDataProvider.fetchAllAlbums();
         emit(HomeLoaded(albuns: albums));
       } catch(e) {
         emit(HomeError(message: 'Error: $e'));

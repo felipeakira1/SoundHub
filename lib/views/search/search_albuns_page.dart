@@ -31,7 +31,7 @@ class _SearchAlbunsPageState extends State<SearchAlbunsPage> {
                 context.read<SearchAlbumBloc>().add(SearchAlbumQuery(query: value));
               },
               decoration: const InputDecoration(
-                hintText: 'Digite aqui o nome do álbum...',
+                hintText: 'Type the name of the album...',
                 contentPadding: EdgeInsets.all(16.0),
               ),
             ),

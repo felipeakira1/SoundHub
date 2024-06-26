@@ -24,7 +24,7 @@ class FirestoreAlbumDataProvider {
     await docRef.update({'uid': docRef.id});
   }
 
-  Future<List<Album>> getAllAlbums() async {
+  Future<List<Album>> fetchAllAlbums() async {
     QuerySnapshot querySnapshot = await _firestore.collection('albums').get();
     List<Album> albums = [];
 
@@ -32,7 +32,7 @@ class FirestoreAlbumDataProvider {
       var albumData = doc.data() as Map<String, dynamic>;
       Album album = Album.fromMap(albumData);
       Artist artist = await _firestoreArtistDataProvider.fetchArtistById(album.artistId);
-      album.artistName = artist.name;
+      album.artist = artist;
       albums.add(album);
     }
     return albums;
@@ -57,7 +57,7 @@ class FirestoreAlbumDataProvider {
   
   Future<List<Album>> searchAlbums(String query) async {
     String lowerCaseQuery = query.toLowerCase();
-    List<Album> allAlbums = await getAllAlbums();
+    List<Album> allAlbums = await fetchAllAlbums();
     List<Album> filteredAlbums = allAlbums.where((album) {
       return album.name.toLowerCase().contains(lowerCaseQuery);
     }).toList();
