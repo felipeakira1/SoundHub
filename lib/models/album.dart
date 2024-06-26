@@ -6,6 +6,7 @@ class Album {
   final String genre;
   final int year;
   final String imageUrl;
+  final List<String> musics;
   final String artistId;
   late Artist artist;
 
@@ -15,18 +16,20 @@ class Album {
     required this.name,
     required this.genre,
     required this.year,
-    required this.artistId,
     required this.imageUrl,
+    required this.musics,
+    required this.artistId,
   });
 
-  factory Album.fromMap(Map<String, dynamic> data) {
+  factory Album.fromMap(Map<String, dynamic> map) {
     return Album(
-      uid: data['uid'] as String,
-      name: data['name'] ?? '',
-      genre: data['genre'] ?? '',
-      year: data['year'] ?? 0,
-      artistId: data['artistId'] ?? '',
-      imageUrl: data['imageUrl'] ?? '',
+      uid: map['uid'] as String,
+      name: map['name'] ?? '',
+      genre: map['genre'] ?? '',
+      year: map['year'] ?? 0,
+      imageUrl: map['imageUrl'] ?? '',
+      musics: (map['musics'] as List<dynamic>).map((music) => music.toString()).toList(),
+      artistId: map['artistId'] ?? '',
     );
   }
   Map<String, dynamic> toMap() {
@@ -35,8 +38,9 @@ class Album {
       'name': name,
       'genre': genre,
       'year': year,
-      'artistId': artistId,
       'imageUrl': imageUrl,
+      'musics': musics,
+      'artistId': artistId,
     };
   }
 }
