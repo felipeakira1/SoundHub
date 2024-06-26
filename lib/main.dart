@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/album_review_bloc.dart';
 import 'package:soundhub/bloc/authentication/authentication_bloc.dart';
+import 'package:soundhub/bloc/details_artist_bloc.dart';
 import 'package:soundhub/bloc/profile/profile_bloc.dart';
 import 'package:soundhub/bloc/search_album_bloc.dart';
 import 'package:soundhub/bloc/user_album_reviews_bloc.dart';
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => UserAlbumReviewsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => DetailsArtistBloc(),
         )
       ],
       child: MaterialApp(

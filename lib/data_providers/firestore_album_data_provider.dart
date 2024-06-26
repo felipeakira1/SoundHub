@@ -54,6 +54,17 @@ class FirestoreAlbumDataProvider {
       throw Exception('Failed to fetch artist details');
     }
   }
+
+  Future<List<Album>> fetchAlbumsByArtistId(String artistId) async {
+    QuerySnapshot snapshot = await _firestore.collection('albums').where('artistId', isEqualTo: artistId).get();
+    List<Album> albums = [];
+    for(var doc in snapshot.docs) {
+      Album album = Album.fromMap(doc.data() as Map<String, dynamic>);
+      album.artist = await _firestoreArtistDataProvider.fetchArtistById(album.artistId);
+      albums.add(album);
+    }
+    return albums;
+  }
   
   Future<List<Album>> searchAlbums(String query) async {
     String lowerCaseQuery = query.toLowerCase();
