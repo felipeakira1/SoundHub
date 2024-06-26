@@ -50,7 +50,7 @@ class _AlbumReviewsPageState extends State<AlbumReviewsPage> {
   Widget buildAlbumReviewsGrid(List<AlbumReview> reviews) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Adjust number of columns
+        crossAxisCount: 3, // Adjust number of columns
         crossAxisSpacing: 10, // Space between columns
         mainAxisSpacing: 10, // Space between rows
         childAspectRatio: 3/4, // Aspect ratio of each grid tile

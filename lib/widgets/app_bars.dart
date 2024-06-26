@@ -5,20 +5,9 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   HomePageAppBar({super.key});
 
-  final Widget leading = Builder(
-    builder: (BuildContext context) {
-      return IconButton(
-        icon: const Icon(Icons.menu, color: Colors.white),
-        onPressed: () { Scaffold.of(context).openDrawer(); },
-        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-      );
-    }
-  );
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: leading,
       title: Text(
         title,
         style: const TextStyle(color: Colors.white)
