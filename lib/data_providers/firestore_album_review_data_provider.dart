@@ -25,7 +25,9 @@ class FirestoreAlbumReviewDataProvider {
   Future<AlbumReview?> fetchAlbumReviewByUserIdAndAlbumId(String userId, String albumId) async {
     var snapshot = await _firestore.collection('albumreviews').where('userId', isEqualTo: userId).where('albumId', isEqualTo: albumId).limit(1).get();
     if(snapshot.docs.isNotEmpty) {
+      var doc = snapshot.docs.first;
       AlbumReview albumReview = AlbumReview.fromMap(snapshot.docs.first.data());
+      albumReview.uid = doc.id;
       albumReview.album = await _firestoreAlbumDataProvider.fetchAlbumById(albumReview.albumId);
       return albumReview;
     }
@@ -37,9 +39,21 @@ class FirestoreAlbumReviewDataProvider {
     List<AlbumReview> reviews = [];
     for(var doc in snapshot.docs) {
       AlbumReview albumReview = AlbumReview.fromMap(doc.data() as Map<String, dynamic>);
+      albumReview.uid = doc.id;
       albumReview.album = await _firestoreAlbumDataProvider.fetchAlbumById(albumReview.albumId);
       reviews.add(albumReview);
     }
     return reviews;
+  }
+
+  Future<void> updateAlbumReview(String reviewId, int newRating, String newDescription) async {
+    try {
+      await _firestore.collection('albumreviews').doc(reviewId).update({
+        'rating': newRating,
+        'description': newDescription
+      });
+    } catch(e) {
+      throw Exception(e);
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/album_review_bloc.dart';
 import 'package:soundhub/models/album.dart';
+import 'package:soundhub/models/album_review.dart';
 import 'package:soundhub/widgets/album_info.dart';
 import 'package:soundhub/widgets/app_bars.dart';
 import 'package:soundhub/widgets/custom_elevated_button.dart';
@@ -24,7 +25,7 @@ class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
     super.initState();
     context
         .read<AlbumReviewBloc>()
-        .add(CheckForExistingReview(albumId: widget.album.uid ?? ''));
+        .add(LoadAlbumReview(albumId: widget.album.uid ?? ''));
   }
 
   @override
@@ -33,24 +34,37 @@ class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
       appBar: const ReturnAppBar(),
       body: BlocListener<AlbumReviewBloc, AlbumReviewState>(
         listener: (context, state) {
-          if (state is ExistingReviewFound) {
+          if (state is AlbumReviewFound) {
             _rating = state.review.rating;
             _descriptionController.text = state.review.description;
           }
-          if (state is AddAlbumReviewSuccess) {
+          if (state is AlbumReviewSubmitted) {
             ScaffoldMessenger.of(context)
               ..removeCurrentSnackBar()
               ..showSnackBar(
-                  const SnackBar(content: Text('Review Added Successfully!')));
-          } else if (state is AddAlbumReviewFailure) {
+                  const SnackBar(
+                    content: Text('Review Added Successfully!'),
+                    duration: Duration(seconds: 2),
+                  ));
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
+          } else if(state is AlbumReviewUpdated) {
             ScaffoldMessenger.of(context)
               ..removeCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text(state.message)));
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text('Review Updated Successfully!'),
+                  duration: Duration(seconds: 2),
+                ));
+            Future.delayed(const Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
           }
         },
         child: BlocBuilder<AlbumReviewBloc, AlbumReviewState>(
           builder: (context, state) {
-            if(state is CheckForExistingReview) {
+            if(state is LoadAlbumReview) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is AlbumReviewError) {
               return Center(child: Text(state.message),);
@@ -73,17 +87,42 @@ class _ReviewAlbumPageState extends State<ReviewAlbumPage> {
                   const SizedBox(height: 20),
                   buildDescriptionField(),
                   const SizedBox(height: 20),
-                  CustomElevatedButton(
-                    title: 'SUBMIT REVIEW',
-                    onPressed: () {
-                      context.read<AlbumReviewBloc>().add(
-                            SubmitAlbumReview(
-                                rating: _rating,
-                                description: _descriptionController.text,
-                                albumId: widget.album.uid ?? ''),
-                          );
+                  BlocBuilder<AlbumReviewBloc, AlbumReviewState>(
+                    builder: (context, state) {
+                      if(state is AlbumReviewLoading) {
+                        return const Center(child: CircularProgressIndicator(),);
+                      } else if (state is AlbumReviewNotFound) {
+                        return CustomElevatedButton(
+                          title: 'SUBMIT REVIEW',
+                          onPressed: () {
+                            context.read<AlbumReviewBloc>().add(
+                                  SubmitAlbumReview(
+                                      rating: _rating,
+                                      description: _descriptionController.text,
+                                      albumId: widget.album.uid ?? ''),
+                                );
+                          },
+                        );
+                      } else if (state is AlbumReviewFound) {
+                        return CustomElevatedButton(
+                          title: 'UPDATE REVIEW',
+                          onPressed: () {
+                            context.read<AlbumReviewBloc>().add(
+                              UpdateAlbumReview(
+                                reviewId: state.review.uid,
+                                rating: _rating, 
+                                description: _descriptionController.text, )
+                            );
+                          },
+                        );
+                      } else if (state is AlbumReviewError) {
+                        return Text(state.message);
+                      } else {
+                        return const Text('');
+                      }
                     },
-                  ),
+                  )
+                  
                 ],
               ),
             );

@@ -27,12 +27,17 @@ class _LoginFormState extends State<LoginForm> {
       listener: (context, state) {
         if (state is Authenticated) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Login Successful!')),
+            const SnackBar(
+              content: Text('Login Successful!'),
+              duration: Duration(seconds: 1),
+            ),
           );
           // Navegar para a página principal ou outra página relevante
         } else if (state is AuthenticationError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Login Failed')),
+            const SnackBar(
+              content: Text('Login Failed'),
+              duration: Duration(seconds: 1),),
           );
         }
       },

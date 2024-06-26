@@ -10,17 +10,17 @@ class AlbumReviewBloc extends Bloc<AlbumReviewEvents, AlbumReviewState> {
   final FirebaseAuthenticationService _firebaseAuthenticationService = FirebaseAuthenticationService();
   final FirestoreAlbumReviewDataProvider _firestoreAlbumReviewDataProvider = FirestoreAlbumReviewDataProvider();
 
-  AlbumReviewBloc() : super(AddAlbumReviewLoading()) {    
-    on<CheckForExistingReview>((event, emit) async {
+  AlbumReviewBloc() : super(AlbumReviewInitial()) {    
+    on<LoadAlbumReview>((event, emit) async {
       emit(AlbumReviewLoading());
       User? user = _firebaseAuthenticationService.getCurrentUser();
       if(user != null) {
         try {
           AlbumReview? review = await _firestoreAlbumReviewDataProvider.fetchAlbumReviewByUserIdAndAlbumId(user.uid, event.albumId);
           if(review != null) {
-            emit(ExistingReviewFound(review: review));
+            emit(AlbumReviewFound(review: review));
           } else {
-            emit(NoExistingReview());
+            emit(AlbumReviewNotFound());
           }
         } catch(e) {
           emit(AlbumReviewError(message: e.toString()));
@@ -30,7 +30,7 @@ class AlbumReviewBloc extends Bloc<AlbumReviewEvents, AlbumReviewState> {
       }
     });
     on<SubmitAlbumReview>((event, emit) async {
-      emit(AddAlbumReviewLoading());
+      emit(AlbumReviewLoading());
       User? currentUser = _firebaseAuthenticationService.getCurrentUser();
       if(currentUser != null) {
         try {
@@ -41,12 +41,21 @@ class AlbumReviewBloc extends Bloc<AlbumReviewEvents, AlbumReviewState> {
             userId: currentUser.uid,
           );
           await _firestoreAlbumReviewDataProvider.addAlbumReview(albumReview);
-          emit(AddAlbumReviewSuccess(albumReview: albumReview));
+          emit(AlbumReviewSubmitted(albumReview: albumReview));
         } catch(e) {
-          emit(AddAlbumReviewFailure(message: '$e'));
+          emit(AlbumReviewFailure(message: '$e'));
         }
       } else {
-        emit(AddAlbumReviewFailure(message: 'User not found while adding album review'));
+        emit(AlbumReviewFailure(message: 'User not found while adding album review'));
+      }
+    });
+    on<UpdateAlbumReview>((event, emit) async {
+      emit(AlbumReviewLoading());
+      try {
+        await _firestoreAlbumReviewDataProvider.updateAlbumReview(event.reviewId, event.rating, event.description);
+        emit(AlbumReviewUpdated());
+      } catch(e) {
+        emit(AlbumReviewFailure(message: e.toString()));
       }
     });
   }
@@ -58,10 +67,10 @@ class AlbumReviewBloc extends Bloc<AlbumReviewEvents, AlbumReviewState> {
 */
 abstract class AlbumReviewEvents {}
 
-class CheckForExistingReview extends AlbumReviewEvents {
+class LoadAlbumReview extends AlbumReviewEvents {
   final String albumId;
 
-  CheckForExistingReview({required this.albumId});
+  LoadAlbumReview({required this.albumId});
 }
 
 class SubmitAlbumReview extends AlbumReviewEvents {
@@ -76,21 +85,37 @@ class SubmitAlbumReview extends AlbumReviewEvents {
   });
 }
 
+class UpdateAlbumReview extends AlbumReviewEvents {
+  int rating;
+  String description;
+  String reviewId;
+
+  UpdateAlbumReview({
+    required this.rating,
+    required this.description,
+    required this.reviewId,
+  });
+}
+
 /*
   States
 */
 
 abstract class AlbumReviewState {}
 
+class AlbumReviewInitial extends AlbumReviewState {}
+
 class AlbumReviewLoading extends AlbumReviewState {}
 
-class ExistingReviewFound extends AlbumReviewState {
+// CheckForExistingReview
+class AlbumReviewNotFound extends AlbumReviewState {}
+
+class AlbumReviewFound extends AlbumReviewState {
   final AlbumReview review;
 
-  ExistingReviewFound({required this.review});
+  AlbumReviewFound({required this.review});
 }
 
-class NoExistingReview extends AlbumReviewState {}
 
 class AlbumReviewError extends AlbumReviewState {
   String message;
@@ -99,17 +124,17 @@ class AlbumReviewError extends AlbumReviewState {
   });
 }
 
-class AddAlbumReviewLoading extends AlbumReviewState {}
-
-class AddAlbumReviewSuccess extends AlbumReviewState {
-  final AlbumReview albumReview;
-
-  AddAlbumReviewSuccess({required this.albumReview});
+class AlbumReviewSubmitted extends AlbumReviewState {
+  AlbumReview albumReview;
+  AlbumReviewSubmitted({
+    required this.albumReview,
+  });
 }
 
-class AddAlbumReviewFailure extends AlbumReviewState {
+class AlbumReviewUpdated extends AlbumReviewState {}
+
+class AlbumReviewFailure extends AlbumReviewState {
   final String message;
-  AddAlbumReviewFailure({
-    required this.message,
-  });
+
+  AlbumReviewFailure({required this.message});
 }

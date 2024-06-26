@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soundhub/bloc/user_album_reviews_bloc.dart';
 import 'package:soundhub/models/album_review.dart';
 import 'package:soundhub/widgets/app_bars.dart';
+import 'package:soundhub/widgets/review_tile.dart';
 
 class AlbumReviewsPage extends StatefulWidget {
   const AlbumReviewsPage({super.key});
@@ -50,56 +51,15 @@ class _AlbumReviewsPageState extends State<AlbumReviewsPage> {
   Widget buildAlbumReviewsGrid(List<AlbumReview> reviews) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3, // Adjust number of columns
+        crossAxisCount: 2, // Adjust number of columns
         crossAxisSpacing: 10, // Space between columns
         mainAxisSpacing: 10, // Space between rows
-        childAspectRatio: 3/4, // Aspect ratio of each grid tile
+        childAspectRatio: 3/5, // Aspect ratio of each grid tile
       ),
       itemCount: reviews.length,
       itemBuilder: (context, index) {
-        return buildReviewTile(reviews[index]);
+        return ReviewTile(review: reviews[index]);
       },
-    );
-  }
-
-  Widget buildReviewTile(AlbumReview review) {
-    return Card(
-      elevation: 2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: Image.network(
-              review.album.imageUrl,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              review.album.name,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              'Rating: ${review.rating}/10',
-              style: const TextStyle(fontSize: 14),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              review.description,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
