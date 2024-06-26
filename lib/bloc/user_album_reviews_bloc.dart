@@ -1,8 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:soundhub/data_providers/firebase_authentication_service.dart';
 import 'package:soundhub/data_providers/firestore_album_review_data_provider.dart';
 import 'package:soundhub/models/album_review.dart';
@@ -28,7 +30,18 @@ class UserAlbumReviewsBloc extends Bloc<UserAlbumReviewsEvent, UserAlbumReviewsS
         }
       }
     });
-
+    on<DeleteUserAlbumReview>((event, emit) async {
+      emit(UserAlbumReviewsLoading());
+      User? user = _firebaseAuthenticationService.getCurrentUser();
+      if(user != null) {
+        try {
+          await _firestoreAlbumReviewDataProvider.deleteAlbumReview(event.albumReviewId);
+          add(LoadUserAlbumReviews());
+        } catch(e) {
+          emit(UserAlbumReviewsError(message: e.toString()));
+        }
+      }
+    });
   }
 }
 /*
@@ -37,6 +50,13 @@ class UserAlbumReviewsBloc extends Bloc<UserAlbumReviewsEvent, UserAlbumReviewsS
 abstract class UserAlbumReviewsEvent {}
 
 class LoadUserAlbumReviews extends UserAlbumReviewsEvent {}
+
+class DeleteUserAlbumReview extends UserAlbumReviewsEvent{
+  String albumReviewId;
+  DeleteUserAlbumReview({
+    required this.albumReviewId,
+  });
+}
 
 /*
   States

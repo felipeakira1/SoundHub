@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:soundhub/bloc/user_album_reviews_bloc.dart';
 import 'package:soundhub/models/album_review.dart';
 import 'package:soundhub/views/details/details_album_page.dart';
 import 'package:soundhub/views/reviews/review_album_page.dart';
@@ -58,7 +60,7 @@ class ReviewTile extends StatelessWidget {
                   label: const Text('Update', style: TextStyle(fontSize: 12),)),
                 ElevatedButton.icon(
                   onPressed: () {
-                    
+                    context.read<UserAlbumReviewsBloc>().add(DeleteUserAlbumReview(albumReviewId: review.uid));
                   }, 
                   icon: const Icon(Icons.delete), 
                   label: const Text('Delete', style: TextStyle(fontSize: 12),)),

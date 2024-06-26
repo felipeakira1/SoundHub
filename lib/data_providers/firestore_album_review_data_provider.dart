@@ -56,4 +56,12 @@ class FirestoreAlbumReviewDataProvider {
       throw Exception(e);
     }
   }
+
+  Future<void> deleteAlbumReview(String albumReviewId) async {
+    try {
+      await _firestore.collection('albumreviews').doc(albumReviewId).delete();
+    } catch(e) {
+      throw Exception(e);
+    }
+  }
 }
